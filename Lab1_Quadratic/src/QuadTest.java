@@ -40,7 +40,7 @@ public class QuadTest {
         double scale = 0;
         Quadratic quad2 = null;
 
-        if (arguments.length != 8) {
+        if(arguments.length != 8) {
             System.out.println("Not enough data.\n");
             return;
         }
@@ -50,7 +50,7 @@ public class QuadTest {
             x = Integer.parseInt(arguments[3]);
             scale = Double.parseDouble(arguments[4]);
             quad2 = new Quadratic(Double.parseDouble(arguments[5]), Double.parseDouble(arguments[6]), Double.parseDouble(arguments[7]));
-        } catch (NullPointerException | NumberFormatException e) {
+        } catch(NullPointerException | NumberFormatException e) {
             System.out.println("Invalid data.\n");
             return;
         }
