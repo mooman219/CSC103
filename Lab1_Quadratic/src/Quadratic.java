@@ -1,3 +1,7 @@
+/**
+ * @author Pratik
+ *
+ */
 public class Quadratic {
     private double coefA;
     private double coefB;
@@ -92,7 +96,7 @@ public class Quadratic {
     public String toString() {
         return coefA + "x*x + " + coefB + "x + " + coefC;
     }
-
+    //Equals method 
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -117,7 +121,7 @@ public class Quadratic {
         return true;
     }
 
-    @Override
+    //Clone method
     public Quadratic clone() {
         return new Quadratic(coefA, coefB, coefC);
     }
