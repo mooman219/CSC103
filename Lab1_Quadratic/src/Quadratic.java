@@ -9,16 +9,32 @@ public class Quadratic {
         this.coefC = coefC;
     }
 
+    /**
+     * @return The first coefficient of the equation.
+     */
     public double getCoefA() {
         return coefA;
     }
 
+    /**
+     * @return The second coefficient of the equation.
+     */
     public double getCoefB() {
         return coefB;
     }
 
+    /**
+     * @return The third coefficient of the equation.
+     */
     public double getCoefC() {
         return coefC;
+    }
+
+    /**
+     * @return Calculates and returns the discriminant of the equation.
+     */
+    public double getDiscriminant() {
+        return Math.pow(coefB, 2) - 4 * coefA * coefC;
     }
 
     public double evalExpression(double x) {
@@ -33,17 +49,56 @@ public class Quadratic {
 
     }
 
+    /**
+     * @return The number of real roots in the equation.
+     */
     public int getRootNum() {
-        double discriminant = Math.pow(coefB, 2) - 4 * coefA * coefC;
+        double discriminant = getDiscriminant();
         return discriminant > 0 ? 2 : discriminant == 0 ? 1 : 0;
     }
 
+    /**
+     * @return The first root of the equation if the discriminant is greater
+     *         than or equal to 0, else returns null.
+     */
     public double getRootOne() {
-        return 0;
+        return getDiscriminant() >= 0 ? (-coefB + Math.sqrt(getDiscriminant())) / (2 * coefA) : null;
     }
 
+    /**
+     * @return The first root of the equation if the discriminant is greater
+     *         than 0, else returns null.
+     */
     public double getRootTwo() {
-        return 0;
+        return getDiscriminant() > 0 ? (-coefB - Math.sqrt(getDiscriminant())) / (2 * coefA) : null;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Quadratic other = (Quadratic) obj;
+        if (Double.doubleToLongBits(coefA) != Double.doubleToLongBits(other.coefA)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(coefB) != Double.doubleToLongBits(other.coefB)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(coefC) != Double.doubleToLongBits(other.coefC)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public Quadratic clone() {
+        return new Quadratic(coefA, coefB, coefC);
+    }
 }
