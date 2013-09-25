@@ -41,12 +41,27 @@ public class Quadratic {
         return (coefA * Math.pow(x, 2)) + (coefB * x) + coefC;
     }
 
-    public void sum() {
-
+    /**
+     * @param quad1
+     *            The first quadratic to be added.
+     * @param quad2
+     *            The second quadratic to be added.
+     * @return A new quadratic whos coefficients are sum of the given
+     *         quadratics.
+     */
+    public static Quadratic sum(Quadratic quad1, Quadratic quad2) {
+        return new Quadratic(quad1.getCoefA() + quad2.getCoefA(), quad1.getCoefB() + quad2.getCoefB(), quad1.getCoefC() + quad2.getCoefC());
     }
 
-    public void scale() {
-
+    /**
+     * @param quad1
+     *            The quadratic to be scaled.
+     * @param amount
+     *            The amount to scale the quadratic by.
+     * @return A new quadratic that is scaled by the amount.
+     */
+    public static Quadratic scale(Quadratic quad1, double amount) {
+        return new Quadratic(quad1.getCoefA() * amount, quad1.getCoefB() * amount, quad1.getCoefC() * amount);
     }
 
     /**
@@ -71,6 +86,11 @@ public class Quadratic {
      */
     public double getRootTwo() {
         return getDiscriminant() > 0 ? (-coefB - Math.sqrt(getDiscriminant())) / (2 * coefA) : null;
+    }
+
+    @Override
+    public String toString() {
+        return coefA + "x*x + " + coefB + "x + " + coefC;
     }
 
     @Override
