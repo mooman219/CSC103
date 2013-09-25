@@ -87,12 +87,16 @@ public class Quadratic {
     public double getRootTwo() {
         return getDiscriminant() > 0 ? (-coefB - Math.sqrt(getDiscriminant())) / (2 * coefA) : null;
     }
-
+    /**
+     *  toString method
+     */
     @Override
     public String toString() {
         return coefA + "x*x + " + coefB + "x + " + coefC;
     }
-    //Equals method 
+    /**
+     * Equals method
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -117,7 +121,9 @@ public class Quadratic {
         return true;
     }
 
-    //Clone method
+   /**
+    * Clone Method
+    */
     public Quadratic clone() {
         return new Quadratic(coefA, coefB, coefC);
     }
