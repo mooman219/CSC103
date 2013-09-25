@@ -23,7 +23,6 @@ public class FileIO {
                 file.createNewFile();
             }
             body = getRawFile();
-            updateFile();
         } catch (Exception e) {
             e.printStackTrace();
         }
