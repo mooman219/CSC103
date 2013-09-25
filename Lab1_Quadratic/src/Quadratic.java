@@ -1,7 +1,3 @@
-/**
- * @author Pratik
- *
- */
 public class Quadratic {
     private double coefA;
     private double coefB;
