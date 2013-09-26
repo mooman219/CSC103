@@ -93,9 +93,14 @@ public class Quadratic {
      */
     @Override
     public String toString() {
-        return coefA + "x*x+" + coefB + "x+" + coefC;
+        return coefA + "x² + " + coefB + "x + " + coefC;
     }
 
+    /**
+     * @param quad
+     *            The Quadratic that will be compared against.
+     * @return If the given Quadratic is an alias of current Quadratic.
+     */
     public boolean isAlias(Quadratic quad) {
         return this == quad;
     }

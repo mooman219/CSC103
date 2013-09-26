@@ -4,24 +4,24 @@ Test #1
 ------------
 
 The first quadratic is:
-	2.0x*x+8.0x+6.0
+	2.0x² + 8.0x + 6.0
 The values of the first quadratic expression with x = 3 is: 48.0
 
 The first quadratic with scaling R = 2 is:
-	4.0x*x+16.0x+12.0
+	4.0x² + 16.0x + 12.0
 
 Number of roots: 2
 	Value of root 2: -3.0
 	Value of root 1: -1.0
 
 The second quadratic is:
-	1.0x*x+1.0x+1.0
+	1.0x² + 1.0x + 1.0
 
 The quadratic which is the sum of first and second quadratics is:
-	3.0x*x+9.0x+7.0
+	3.0x² + 9.0x + 7.0
 
 A clone of the first quadratic is:
-	2.0x*x+8.0x+6.0
+	2.0x² + 8.0x + 6.0
 The first quadratic and the clone are not aliases, but are equal to each other.
 
 *****************************
@@ -29,23 +29,23 @@ Test #2
 ------------
 
 The first quadratic is:
-	0.0x*x+0.0x+0.0
+	0.0x² + 0.0x + 0.0
 The values of the first quadratic expression with x = 1 is: 0.0
 
 The first quadratic with scaling R = 2 is:
-	0.0x*x+0.0x+0.0
+	0.0x² + 0.0x + 0.0
 
 Number of roots: 1
 	Value of root 1: NaN
 
 The second quadratic is:
-	2.0x*x+2.0x+2.0
+	2.0x² + 2.0x + 2.0
 
 The quadratic which is the sum of first and second quadratics is:
-	2.0x*x+2.0x+2.0
+	2.0x² + 2.0x + 2.0
 
 A clone of the first quadratic is:
-	0.0x*x+0.0x+0.0
+	0.0x² + 0.0x + 0.0
 The first quadratic and the clone are not aliases, but are equal to each other.
 
 *****************************
@@ -53,23 +53,23 @@ Test #3
 ------------
 
 The first quadratic is:
-	0.0x*x+0.0x+5.0
+	0.0x² + 0.0x + 5.0
 The values of the first quadratic expression with x = 2 is: 5.0
 
 The first quadratic with scaling R = 2 is:
-	0.0x*x+0.0x+10.0
+	0.0x² + 0.0x + 10.0
 
 Number of roots: 1
 	Value of root 1: NaN
 
 The second quadratic is:
-	0.0x*x+1.0x+2.0
+	0.0x² + 1.0x + 2.0
 
 The quadratic which is the sum of first and second quadratics is:
-	0.0x*x+1.0x+7.0
+	0.0x² + 1.0x + 7.0
 
 A clone of the first quadratic is:
-	0.0x*x+0.0x+5.0
+	0.0x² + 0.0x + 5.0
 The first quadratic and the clone are not aliases, but are equal to each other.
 
 *****************************
@@ -83,22 +83,22 @@ Test #5
 ------------
 
 The first quadratic is:
-	0.0x*x+2.0x+6.0
+	0.0x² + 2.0x + 6.0
 The values of the first quadratic expression with x = 3 is: 12.0
 
 The first quadratic with scaling R = 2 is:
-	0.0x*x+4.0x+12.0
+	0.0x² + 4.0x + 12.0
 
 Number of roots: 2
 	Value of root 2: -Infinity
 	Value of root 1: NaN
 
 The second quadratic is:
-	1.0x*x+0.0x+2.0
+	1.0x² + 0.0x + 2.0
 
 The quadratic which is the sum of first and second quadratics is:
-	1.0x*x+2.0x+8.0
+	1.0x² + 2.0x + 8.0
 
 A clone of the first quadratic is:
-	0.0x*x+2.0x+6.0
+	0.0x² + 2.0x + 6.0
 The first quadratic and the clone are not aliases, but are equal to each other.

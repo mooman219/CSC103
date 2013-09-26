@@ -1,5 +1,8 @@
-
 public class QuadTest {
+    private Quadratic quad1;
+    private Quadratic quad2;
+    private Quadratic quad3;
+
     public QuadTest() {
     }
 
@@ -10,7 +13,8 @@ public class QuadTest {
         // TODO
     }
 
-    public void calculations(Quadratic quad1, Quadratic quad2, double scale, int x) {
+    public void calculations(double scale, int x) {
+        quad3 = quad1.clone();
         System.out.println("The first quadratic is:");
         System.out.println("\t" + quad1.toString());
         System.out.println("The values of the first quadratic expression with x = " + x + " is: " + quad1.evalExpression(x));
@@ -35,22 +39,31 @@ public class QuadTest {
         System.out.println("\t" + Quadratic.sum(quad1, quad2).toString());
         System.out.println();
         System.out.println("A clone of the first quadratic is:");
-        System.out.println("\t" + quad1.clone().toString());
-        System.out.println("The first quadratic and the clone " + (quad1.isAlias(quad1.clone()) ? "are" : "are not") + " aliases, but " + (quad1.equals(quad1.clone()) ? "are" : "are not") + " equal to each other.");
+        System.out.println("\t" + quad3);
+        System.out.println("The first quadratic and the clone " + (quad1.isAlias(quad3) ? "are" : "are not") + " aliases, but " + (quad1.equals(quad3) ? "are" : "are not") + " equal to each other.");
     }
 
+    /**
+     * @param line
+     *            The line to extract the data from.
+     */
     public void parse(String line) {
         String[] arguments = line.split(" ");
-        Quadratic quad1 = null;
         int x = 0;
         double scale = 0;
-        Quadratic quad2 = null;
 
+        /*
+         * Assert that there are a sufficient amount of arguments to parse.
+         */
         if(arguments.length != 8) {
             System.out.println("Not enough data.");
             return;
         }
 
+        /*
+         * Parse the arguments. If an exception is thrown while parsing the
+         * data, stop parsing, alert the user, and return.
+         */
         try {
             quad1 = new Quadratic(Double.parseDouble(arguments[0]), Double.parseDouble(arguments[1]), Double.parseDouble(arguments[2]));
             x = Integer.parseInt(arguments[3]);
@@ -58,9 +71,10 @@ public class QuadTest {
             quad2 = new Quadratic(Double.parseDouble(arguments[5]), Double.parseDouble(arguments[6]), Double.parseDouble(arguments[7]));
         } catch(NullPointerException | NumberFormatException e) {
             System.out.println("Invalid data.");
+            e.printStackTrace();
             return;
         }
 
-        calculations(quad1, quad2, scale, x);
+        calculations(scale, x);
     }
 }
