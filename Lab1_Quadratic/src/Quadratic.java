@@ -37,6 +37,11 @@ public class Quadratic {
         return Math.pow(coefB, 2) - 4 * coefA * coefC;
     }
 
+    /**
+     * @param x
+     *            The value to evaluated.
+     * @return The evaluated answer.
+     */
     public double evalExpression(double x) {
         return (coefA * Math.pow(x, 2)) + (coefB * x) + coefC;
     }
@@ -99,7 +104,7 @@ public class Quadratic {
     /**
      * @param quad
      *            The Quadratic that will be compared against.
-     * @return If the given Quadratic is an alias of current Quadratic.
+     * @return True if the given Quadratic is an alias of current Quadratic.
      */
     public boolean isAlias(Quadratic quad) {
         return this == quad;
