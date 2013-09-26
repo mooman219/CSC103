@@ -1,3 +1,4 @@
+
 public class QuadTest {
     public QuadTest() {
     }
@@ -11,26 +12,31 @@ public class QuadTest {
 
     public void calculations(Quadratic quad1, Quadratic quad2, double scale, int x) {
         System.out.println("The first quadratic is:");
-        System.out.println(quad1.toString());
+        System.out.println("\t" + quad1.toString());
         System.out.println("The values of the first quadratic expression with x = " + x + " is: " + quad1.evalExpression(x));
+        System.out.println();
         System.out.println("The first quadratic with scaling R = 2 is:");
-        System.out.println(Quadratic.scale(quad1, 2).toString());
+        System.out.println("\t" + Quadratic.scale(quad1, 2).toString());
+        System.out.println();
         System.out.println("Number of roots: " + quad1.getRootNum());
         switch(quad1.getRootNum()) {
         case 2:
-            System.out.println("Value of root 2: " + quad1.getRootTwo());
+            System.out.println("\tValue of root 2: " + quad1.getRootTwo());
         case 1:
-            System.out.println("Value of root 1: " + quad1.getRootOne());
+            System.out.println("\tValue of root 1: " + quad1.getRootOne());
         default:
             break;
         }
+        System.out.println();
         System.out.println("The second quadratic is:");
-        System.out.println(quad2.toString());
+        System.out.println("\t" + quad2.toString());
+        System.out.println();
         System.out.println("The quadratic which is the sum of first and second quadratics is:");
-        System.out.println(Quadratic.sum(quad1, quad2).toString());
+        System.out.println("\t" + Quadratic.sum(quad1, quad2).toString());
+        System.out.println();
         System.out.println("A clone of the first quadratic is:");
-        System.out.println(quad1.clone().toString());
-        System.out.println("The first quadratic and the clone " + (quad1.isAlias(quad1.clone()) ? "are" : "are not") + " aliases, but " + (quad1.equals(quad1.clone()) ? "are" : "are not") + " equal to each other.\n");
+        System.out.println("\t" + quad1.clone().toString());
+        System.out.println("The first quadratic and the clone " + (quad1.isAlias(quad1.clone()) ? "are" : "are not") + " aliases, but " + (quad1.equals(quad1.clone()) ? "are" : "are not") + " equal to each other.");
     }
 
     public void parse(String line) {
@@ -41,7 +47,7 @@ public class QuadTest {
         Quadratic quad2 = null;
 
         if(arguments.length != 8) {
-            System.out.println("Not enough data.\n");
+            System.out.println("Not enough data.");
             return;
         }
 
@@ -51,14 +57,10 @@ public class QuadTest {
             scale = Double.parseDouble(arguments[4]);
             quad2 = new Quadratic(Double.parseDouble(arguments[5]), Double.parseDouble(arguments[6]), Double.parseDouble(arguments[7]));
         } catch(NullPointerException | NumberFormatException e) {
-            System.out.println("Invalid data.\n");
+            System.out.println("Invalid data.");
             return;
         }
 
         calculations(quad1, quad2, scale, x);
-    }
-
-    public void output() {
-
     }
 }

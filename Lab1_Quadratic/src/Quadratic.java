@@ -105,23 +105,23 @@ public class Quadratic {
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
+        if(this == obj) {
             return true;
         }
-        if (obj == null) {
+        if(obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if(getClass() != obj.getClass()) {
             return false;
         }
         Quadratic other = (Quadratic) obj;
-        if (Double.doubleToLongBits(coefA) != Double.doubleToLongBits(other.coefA)) {
+        if(Double.doubleToLongBits(coefA) != Double.doubleToLongBits(other.coefA)) {
             return false;
         }
-        if (Double.doubleToLongBits(coefB) != Double.doubleToLongBits(other.coefB)) {
+        if(Double.doubleToLongBits(coefB) != Double.doubleToLongBits(other.coefB)) {
             return false;
         }
-        if (Double.doubleToLongBits(coefC) != Double.doubleToLongBits(other.coefC)) {
+        if(Double.doubleToLongBits(coefC) != Double.doubleToLongBits(other.coefC)) {
             return false;
         }
         return true;

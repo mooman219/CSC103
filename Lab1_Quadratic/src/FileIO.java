@@ -1,86 +1,100 @@
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class FileIO {
     private File file;
-    private ArrayList<String> body = new ArrayList<String>();
+    private List<String> body = new ArrayList<String>();
 
-    public FileIO(String s) {
-        file = new File(s);
-        setUpFile(file);
+    public FileIO(File file) {
+        this.file = file;
+        create();
+        reload();
     }
 
-    public FileIO(File f) {
-        setUpFile(f);
+    public FileIO(String path) {
+        this(new File(path));
     }
 
-    public FileIO setUpFile(File f) {
-        file = f;
-        try {
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            body = getRawFile();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return this;
-    }
-
-    public void wipeFile() {
-        body.clear();
-        updateFile();
-    }
-
-    public ArrayList<String> writeAdd(String inputStr) {
+    public void addLine(String inputStr) {
         body.add(inputStr);
-        return updateFile();
+        write();
     }
 
-    public String getBodyLine(int lineNumber) {
-        if (lineNumber >= body.size() || lineNumber < 0) {
+    public void addLines(List<String> lines) {
+        body.addAll(lines);
+        write();
+    }
+
+    public void clear() {
+        body.clear();
+        write();
+    }
+
+    public void create() {
+        if(!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch(IOException e) {
+                System.out.println("Error creating file.");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void delete() {
+        if(!file.exists()) {
+            file.delete();
+        }
+    }
+
+    public boolean exists() {
+        return file.exists();
+    }
+
+    public List<String> getBody() {
+        return body;
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public String getLine(int lineNumber) {
+        if(lineNumber >= body.size() || lineNumber < 0) {
             return "";
         }
         return body.get(lineNumber);
     }
 
-    public ArrayList<String> getBody() {
-        return body;
-    }
-
-    public ArrayList<String> getRawFile() {
+    public ArrayList<String> getRawBody() {
         ArrayList<String> text = new ArrayList<String>();
-        try {
-            Scanner reader = new Scanner(file);
-            while (reader.hasNextLine()) {
+        try(Scanner reader = new Scanner(file)) {
+            while(reader.hasNextLine()) {
                 text.add(reader.nextLine());
             }
-            reader.close();
-        } catch (Exception e) {
-            System.out.println("Error Scanning File...");
+        } catch(Exception e) {
+            System.out.println("Error reading File.");
             e.printStackTrace();
         }
         return text;
     }
 
-    public ArrayList<String> reloadBody() {
-        body = getRawFile();
-        return body;
+    public void reload() {
+        body = getRawBody();
     }
 
-    public ArrayList<String> updateFile() {
-        try {
-            PrintStream input = new PrintStream(file);
-            for (String a : body) {
+    public void write() {
+        try(PrintStream input = new PrintStream(file)) {
+            for(String a : body) {
                 input.println(a);
             }
-            input.close();
-        } catch (Exception e) {
-            System.out.println("Error Updating File...");
+        } catch(Exception e) {
+            System.out.println("Error writing File.");
             e.printStackTrace();
         }
-        return body;
     }
 }
