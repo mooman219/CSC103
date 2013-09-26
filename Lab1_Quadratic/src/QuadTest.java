@@ -44,6 +44,10 @@ public class QuadTest {
     }
 
     /**
+     * This method will parse the given line and then run calculations on the
+     * data. If there is an error while reading the data, it will alert the user
+     * and return without doing calculations.
+     * 
      * @param line
      *            The line to extract the data from.
      */

@@ -1,6 +1,6 @@
 /**
  * @author Joe Cumbo & Pratik Sampat
- * @date 9/25/2013
+ * @date 10/2/2013
  * @description TODO
  */
 
@@ -23,6 +23,10 @@ public class Lab1 {
             e.printStackTrace();
         }
 
+        /*
+         * Read the body of the input.txt file. For each line read, increment
+         * the currentTest variable by one, then parse the line.
+         */
         for(String line : input.getBody()) {
             currentTest++;
             System.out.println("\n*****************************");
