@@ -13,7 +13,7 @@ public class QuadTest {
         // TODO
     }
 
-    public void calculations(double scale, int x) {
+    public void calculations(double scale, double x) {
         quad3 = quad1.clone();
         System.out.println("The first quadratic is:");
         System.out.println("\t" + quad1.toString());
@@ -53,7 +53,7 @@ public class QuadTest {
      */
     public void parse(String line) {
         String[] arguments = line.split(" ");
-        int x = 0;
+        double x = 0;
         double scale = 0;
 
         /*
@@ -70,7 +70,7 @@ public class QuadTest {
          */
         try {
             quad1 = new Quadratic(Double.parseDouble(arguments[0]), Double.parseDouble(arguments[1]), Double.parseDouble(arguments[2]));
-            x = Integer.parseInt(arguments[3]);
+            x = Double.parseDouble(arguments[3]);
             scale = Double.parseDouble(arguments[4]);
             quad2 = new Quadratic(Double.parseDouble(arguments[5]), Double.parseDouble(arguments[6]), Double.parseDouble(arguments[7]));
         } catch(NullPointerException | NumberFormatException e) {
