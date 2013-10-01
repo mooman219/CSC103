@@ -17,6 +17,8 @@ public class Lab1 {
         QuadTest quadTest = new QuadTest();
         int currentTest = 0;
 
+        quadTest.intro();
+
         /*
          * Setup the output. This will take the default System.out print stream
          * and replace it with our own stream. Our stream will write to a file.

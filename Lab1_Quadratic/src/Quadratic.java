@@ -1,7 +1,8 @@
 /**
  * @author Joe Cumbo & Pratik Sampat
  * @date 10/2/2013
- * @description This program will read the input.txt file and run calculations on the data.
+ * @description This program will read the input.txt file and run calculations
+ *              on the data.
  */
 
 public class Quadratic {

@@ -5,7 +5,7 @@ Test #1
 
 The first quadratic is:
 	2.0x² + 8.0x + 6.0
-The values of the first quadratic expression with x = 3 is: 48.0
+The values of the first quadratic expression with x = 3.0 is: 48.0
 
 The first quadratic with scaling R = 2 is:
 	4.0x² + 16.0x + 12.0
@@ -30,7 +30,7 @@ Test #2
 
 The first quadratic is:
 	0.0x² + 0.0x + 0.0
-The values of the first quadratic expression with x = 1 is: 0.0
+The values of the first quadratic expression with x = 1.0 is: 0.0
 
 The first quadratic with scaling R = 2 is:
 	0.0x² + 0.0x + 0.0
@@ -54,7 +54,7 @@ Test #3
 
 The first quadratic is:
 	0.0x² + 0.0x + 5.0
-The values of the first quadratic expression with x = 2 is: 5.0
+The values of the first quadratic expression with x = 2.0 is: 5.0
 
 The first quadratic with scaling R = 2 is:
 	0.0x² + 0.0x + 10.0
@@ -84,7 +84,7 @@ Test #5
 
 The first quadratic is:
 	0.0x² + 2.0x + 6.0
-The values of the first quadratic expression with x = 3 is: 12.0
+The values of the first quadratic expression with x = 3.0 is: 12.0
 
 The first quadratic with scaling R = 2 is:
 	0.0x² + 4.0x + 12.0

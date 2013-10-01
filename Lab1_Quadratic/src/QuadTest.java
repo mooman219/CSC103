@@ -1,7 +1,8 @@
 /**
  * @author Joe Cumbo & Pratik Sampat
  * @date 10/2/2013
- * @description This program will read the input.txt file and run calculations on the data.
+ * @description This program will read the input.txt file and run calculations
+ *              on the data.
  */
 
 public class QuadTest {
@@ -19,6 +20,13 @@ public class QuadTest {
      *            The x value to use when evaluating the quadratic.
      */
     public void calculations(double scale, double x) {
+        /*
+         * Sidenote ~ We changed the default System.out OutputStream to a
+         * PrintStream directed towards the output.txt file. This allows for a
+         * more user friendly interface when working with this program. It also
+         * results in less code that needs to be written. There is no output()
+         * method because that is automatically handled by the PrintStream.
+         */
         quad3 = quad1.clone();
         System.out.println("The first quadratic is:");
         System.out.println("\t" + quad1.toString());
@@ -52,7 +60,9 @@ public class QuadTest {
      * This prints out a description of what the program will be doing.
      */
     public void intro() {
-        // TODO
+        System.out.println("This program will read each line of the input.txt file sequentially.");
+        System.out.println("For each line it reads, it will parse the data then write its output to the output.txt file.");
+        System.out.println("If any data is malformatted, it will warn the user and skip the line.");
     }
 
     /**
