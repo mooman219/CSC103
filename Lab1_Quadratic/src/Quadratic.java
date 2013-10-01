@@ -62,7 +62,10 @@ public class Quadratic {
      *         quadratics.
      */
     public static Quadratic sum(Quadratic quad1, Quadratic quad2) {
-        return new Quadratic(quad1.getCoefA() + quad2.getCoefA(), quad1.getCoefB() + quad2.getCoefB(), quad1.getCoefC() + quad2.getCoefC());
+        return new Quadratic(
+                quad1.getCoefA() + quad2.getCoefA(), 
+                quad1.getCoefB() + quad2.getCoefB(), 
+                quad1.getCoefC() + quad2.getCoefC());
     }
 
     /**
@@ -73,7 +76,10 @@ public class Quadratic {
      * @return A new quadratic that is scaled by the amount.
      */
     public static Quadratic scale(Quadratic quad1, double amount) {
-        return new Quadratic(quad1.getCoefA() * amount, quad1.getCoefB() * amount, quad1.getCoefC() * amount);
+        return new Quadratic(
+                quad1.getCoefA() * amount, 
+                quad1.getCoefB() * amount, 
+                quad1.getCoefC() * amount);
     }
 
     /**
