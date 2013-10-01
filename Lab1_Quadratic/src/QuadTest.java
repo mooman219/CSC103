@@ -1,3 +1,9 @@
+/**
+ * @author Joe Cumbo & Pratik Sampat
+ * @date 10/2/2013
+ * @description This program will read the input.txt file and run calculations on the data.
+ */
+
 public class QuadTest {
     private Quadratic quad1;
     private Quadratic quad2;
@@ -7,12 +13,11 @@ public class QuadTest {
     }
 
     /**
-     * This prints out a description of what the program will be doing.
+     * @param scale
+     *            The value to scale the quadratic by.
+     * @param x
+     *            The x value to use when evaluating the quadratic.
      */
-    public void intro() {
-        // TODO
-    }
-
     public void calculations(double scale, double x) {
         quad3 = quad1.clone();
         System.out.println("The first quadratic is:");
@@ -41,6 +46,13 @@ public class QuadTest {
         System.out.println("A clone of the first quadratic is:");
         System.out.println("\t" + quad3);
         System.out.println("The first quadratic and the clone " + (quad1.isAlias(quad3) ? "are" : "are not") + " aliases, but " + (quad1.equals(quad3) ? "are" : "are not") + " equal to each other.");
+    }
+
+    /**
+     * This prints out a description of what the program will be doing.
+     */
+    public void intro() {
+        // TODO
     }
 
     /**

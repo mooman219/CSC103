@@ -1,7 +1,7 @@
 /**
  * @author Joe Cumbo & Pratik Sampat
  * @date 10/2/2013
- * @description TODO
+ * @description This program will read the input.txt file and run calculations on the data.
  */
 
 import java.io.FileNotFoundException;
@@ -9,6 +9,10 @@ import java.io.PrintStream;
 
 public class Lab1 {
     public static void main(String[] args) {
+        /*
+         * Declare the vairables I am going to be using to read and do my
+         * calculations with.
+         */
         FileIO input = new FileIO("input.txt");
         QuadTest quadTest = new QuadTest();
         int currentTest = 0;
