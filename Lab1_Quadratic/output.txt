@@ -35,8 +35,7 @@ The values of the first quadratic expression with x = 1.0 is: 0.0
 The first quadratic with scaling R = 2 is:
 	0.0x² + 0.0x + 0.0
 
-Number of roots: 1
-	Value of root 1: NaN
+Number of roots: Infinity
 
 The second quadratic is:
 	2.0x² + 2.0x + 2.0
@@ -59,8 +58,7 @@ The values of the first quadratic expression with x = 2.0 is: 5.0
 The first quadratic with scaling R = 2 is:
 	0.0x² + 0.0x + 10.0
 
-Number of roots: 1
-	Value of root 1: NaN
+Number of roots: 0
 
 The second quadratic is:
 	0.0x² + 1.0x + 2.0
@@ -89,9 +87,8 @@ The values of the first quadratic expression with x = 3.0 is: 12.0
 The first quadratic with scaling R = 2 is:
 	0.0x² + 4.0x + 12.0
 
-Number of roots: 2
-	Value of root 2: -Infinity
-	Value of root 1: NaN
+Number of roots: 1
+	Value of root 1: 0.0
 
 The second quadratic is:
 	1.0x² + 0.0x + 2.0
@@ -101,4 +98,52 @@ The quadratic which is the sum of first and second quadratics is:
 
 A clone of the first quadratic is:
 	0.0x² + 2.0x + 6.0
+The first quadratic and the clone are not aliases, but are equal to each other.
+
+*****************************
+Test #6
+------------
+
+The first quadratic is:
+	2.0x² + 4.0x + 9.0
+The values of the first quadratic expression with x = 1.0 is: 15.0
+
+The first quadratic with scaling R = 2 is:
+	4.0x² + 8.0x + 18.0
+
+Number of roots: 0
+
+The second quadratic is:
+	1.0x² + 2.0x + 0.0
+
+The quadratic which is the sum of first and second quadratics is:
+	3.0x² + 6.0x + 9.0
+
+A clone of the first quadratic is:
+	2.0x² + 4.0x + 9.0
+The first quadratic and the clone are not aliases, but are equal to each other.
+
+*****************************
+Test #7
+------------
+
+The first quadratic is:
+	3.0x² + 6.0x + 3.0
+The values of the first quadratic expression with x = 5.0 is: 108.0
+
+The first quadratic with scaling R = 2 is:
+	6.0x² + 12.0x + 6.0
+
+Number of roots: 2
+	Value of root 2: -1.0
+	Value of root 1: -1.0
+
+The second quadratic is:
+	5.0x² + 5.0x + 5.0
+
+The quadratic which is the sum of first and second quadratics is:
+	8.0x² + 11.0x + 8.0
+
+A clone of the first quadratic is:
+	3.0x² + 6.0x + 3.0
 The first quadratic and the clone are not aliases, but are equal to each other.

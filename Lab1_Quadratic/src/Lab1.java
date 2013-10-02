@@ -1,7 +1,8 @@
 /**
- * @author Joe Cumbo & Pratik Sampat
- * @date 10/2/2013
- * @description This program will read the input.txt file and run calculations on the data.
+ * @author Joe Cumbo & Pratik Sampat 
+ * @since 10/2/2013 
+ * 
+ * This program will read the input.txt file and run calculations on the data.
  */
 
 import java.io.FileNotFoundException;

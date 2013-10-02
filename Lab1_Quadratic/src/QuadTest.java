@@ -1,8 +1,9 @@
 /**
  * @author Joe Cumbo & Pratik Sampat
- * @date 10/2/2013
- * @description This program will read the input.txt file and run calculations
- *              on the data.
+ * @since 10/2/2013
+ * 
+ *        This program will read the input.txt file and run calculations on the
+ *        data.
  */
 
 public class QuadTest {
@@ -14,6 +15,8 @@ public class QuadTest {
     }
 
     /**
+     * Performs calculations on the stored quadratics.
+     * 
      * @param scale
      *            The value to scale the quadratic by.
      * @param x
@@ -35,7 +38,7 @@ public class QuadTest {
         System.out.println("The first quadratic with scaling R = 2 is:");
         System.out.println("\t" + Quadratic.scale(quad1, 2).toString());
         System.out.println();
-        System.out.println("Number of roots: " + quad1.getRootNum());
+        System.out.println("Number of roots: " + (quad1.getRootNum() == 3 ? "Infinity" : quad1.getRootNum()));
         switch(quad1.getRootNum()) {
         case 2:
             System.out.println("\tValue of root 2: " + quad1.getRootTwo());

@@ -1,8 +1,9 @@
 /**
  * @author Joe Cumbo & Pratik Sampat
- * @date 10/2/2013
- * @description This program will read the input.txt file and run calculations
- *              on the data.
+ * @since 10/2/2013
+ * 
+ *        This program will read the input.txt file and run calculations on the
+ *        data.
  */
 
 public class Quadratic {
@@ -17,6 +18,8 @@ public class Quadratic {
     }
 
     /**
+     * Gets the first coefficient.
+     * 
      * @return The first coefficient of the equation.
      */
     public double getCoefA() {
@@ -24,6 +27,8 @@ public class Quadratic {
     }
 
     /**
+     * Gets the second coefficient.
+     * 
      * @return The second coefficient of the equation.
      */
     public double getCoefB() {
@@ -31,6 +36,8 @@ public class Quadratic {
     }
 
     /**
+     * Gets the third coefficient.
+     * 
      * @return The third coefficient of the equation.
      */
     public double getCoefC() {
@@ -38,6 +45,8 @@ public class Quadratic {
     }
 
     /**
+     * Gets the discriminant.
+     * 
      * @return Calculates and returns the discriminant of the equation.
      */
     public double getDiscriminant() {
@@ -45,6 +54,8 @@ public class Quadratic {
     }
 
     /**
+     * Evaluates the answer given x.
+     * 
      * @param x
      *            The value to evaluated.
      * @return The evaluated answer.
@@ -54,6 +65,8 @@ public class Quadratic {
     }
 
     /**
+     * Adds two quadratics together.
+     * 
      * @param quad1
      *            The first quadratic to be added.
      * @param quad2
@@ -62,13 +75,12 @@ public class Quadratic {
      *         quadratics.
      */
     public static Quadratic sum(Quadratic quad1, Quadratic quad2) {
-        return new Quadratic(
-                quad1.getCoefA() + quad2.getCoefA(), 
-                quad1.getCoefB() + quad2.getCoefB(), 
-                quad1.getCoefC() + quad2.getCoefC());
+        return new Quadratic(quad1.getCoefA() + quad2.getCoefA(), quad1.getCoefB() + quad2.getCoefB(), quad1.getCoefC() + quad2.getCoefC());
     }
 
     /**
+     * Scales the given quadratic by a given amount.
+     * 
      * @param quad1
      *            The quadratic to be scaled.
      * @param amount
@@ -76,38 +88,67 @@ public class Quadratic {
      * @return A new quadratic that is scaled by the amount.
      */
     public static Quadratic scale(Quadratic quad1, double amount) {
-        return new Quadratic(
-                quad1.getCoefA() * amount, 
-                quad1.getCoefB() * amount, 
-                quad1.getCoefC() * amount);
+        return new Quadratic(quad1.getCoefA() * amount, quad1.getCoefB() * amount, quad1.getCoefC() * amount);
     }
 
     /**
+     * Gets the number of real roots in the equation, returning 3 for infinity.
+     * 
      * @return The number of real roots in the equation.
      */
     public int getRootNum() {
-        double discriminant = getDiscriminant();
-        return discriminant > 0 ? 2 : discriminant == 0 ? 1 : 0;
+        if(coefA != 0) {
+            if(Math.pow(2, coefB) < 4 * coefA * coefC) {
+                return 0;
+            } else if(Math.pow(2, coefB) > 4 * coefA * coefC) {
+                return 2;
+            } else {
+                return 1;
+            }
+        } else {
+            if(coefB != 0) {
+                return 1;
+            } else if(coefC != 0) {
+                return 0;
+            } else {
+                return 3;
+            }
+        }
     }
 
     /**
-     * @return The first root of the equation if the discriminant is greater
-     *         than or equal to 0, else returns null.
+     * Gets the first root.
+     * 
+     * @return The first root of the equation if there are 1 or 2 real roots.
+     *         Else returns 0.
      */
     public double getRootOne() {
-        return getDiscriminant() >= 0 ? (-coefB + Math.sqrt(getDiscriminant())) / (2 * coefA) : null;
+        int totalRoots = getRootNum();
+        if(totalRoots > 0 && totalRoots < 3) {
+            if(!(coefA == 0 && coefB != 0)) {
+                return (-coefB + Math.sqrt(getDiscriminant())) / (2 * coefA);
+            }
+        }
+        return 0;
     }
 
     /**
-     * @return The first root of the equation if the discriminant is greater
-     *         than 0, else returns null.
+     * Gets the second root.
+     * 
+     * @return The second root of the equation if there are 2 real roots. Else
+     *         returns 0.
      */
     public double getRootTwo() {
-        return getDiscriminant() > 0 ? (-coefB - Math.sqrt(getDiscriminant())) / (2 * coefA) : null;
+        int totalRoots = getRootNum();
+        if(totalRoots == 2) {
+            return (-coefB - Math.sqrt(getDiscriminant())) / (2 * coefA);
+        } else {
+            return 0;
+        }
     }
 
     /**
-     * toString method
+     * ToString method
      */
     @Override
     public String toString() {
@@ -115,6 +156,9 @@ public class Quadratic {
     }
 
     /**
+     * Checks to see if the given quadratic is an alias of the current
+     * quadratic.
+     * 
      * @param quad
      *            The Quadratic that will be compared against.
      * @return True if the given Quadratic is an alias of current Quadratic.
