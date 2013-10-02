@@ -125,7 +125,9 @@ public class Quadratic {
     public double getRootOne() {
         int totalRoots = getRootNum();
         if(totalRoots > 0 && totalRoots < 3) {
-            if(!(coefA == 0 && coefB != 0)) {
+            if(coefA == 0 && coefB != 0) {
+                return -coefC / coefB;
+            } else {
                 return (-coefB + Math.sqrt(getDiscriminant())) / (2 * coefA);
             }
         }

@@ -35,10 +35,20 @@ public class QuadTest {
         System.out.println("\t" + quad1.toString());
         System.out.println("The values of the first quadratic expression with x = " + x + " is: " + quad1.evalExpression(x));
         System.out.println();
-        System.out.println("The first quadratic with scaling R = 2 is:");
-        System.out.println("\t" + Quadratic.scale(quad1, 2).toString());
+        System.out.println("The first quadratic with scaling R = " + scale + " is:");
+        System.out.println("\t" + Quadratic.scale(quad1, scale).toString());
         System.out.println();
-        System.out.println("Number of roots: " + (quad1.getRootNum() == 3 ? "Infinity" : quad1.getRootNum()));
+        switch(quad1.getRootNum()) {
+        case 0:
+            System.out.println("Number of roots: " + "There are no real roots.");
+            break;
+        case 3:
+            System.out.println("Number of roots: " + "Infinity many roots.");
+            break;
+        default:
+            System.out.println("Number of roots: " + quad1.getRootNum());
+            break;
+        }
         switch(quad1.getRootNum()) {
         case 2:
             System.out.println("\tValue of root 2: " + quad1.getRootTwo());
