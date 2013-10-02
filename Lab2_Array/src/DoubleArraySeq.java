@@ -1,5 +1,5 @@
 /******************************************************************************
- * This class is a homework assignment; A DoubleArraySequence is a collection of
+ * This class is a homework assignment; A DoubleArraySeq is a collection of
  * double numbers. The sequence can have a special "current element," which is
  * specified and accessed through four methods that are not available in the
  * sequence class (start, getCurrent, advance and isCurrent).
@@ -16,16 +16,15 @@
  * @note This file contains only blank implementations ("stubs") because this is
  *       a Programming Project for my students.
  * 
- * @see <A
- *      HREF="../../../../edu/colorado/collections/DoubleArraySequence .java">
- *      Java Source Code for this class
- *      (www.cs.colorado.edu/~main/edu/colorado/collections/DoubleArraySequence
- *      .java) </A>
+ * @see <A HREF="../../../../edu/colorado/collections/DoubleArraySeq.java"> Java
+ *      Source Code for this class
+ *      (www.cs.colorado.edu/~main/edu/colorado/collections/DoubleArraySeq.java)
+ *      </A>
  * 
  * @version March 5, 2002
  ******************************************************************************/
-public class DoubleArraySequence implements Cloneable {
-    // Invariant of the DoubleArraySequence class:
+public class DoubleArraySeq implements Cloneable {
+    // Invariant of the DoubleArraySeq class:
     // 1. The number of elements in the seqeunces is in the instance variable
     // manyItems.
     // 2. For an empty sequence (with no elements), we do not care what is
@@ -48,8 +47,8 @@ public class DoubleArraySequence implements Cloneable {
      * @exception OutOfMemoryError
      *                Indicates insufficient memory for: new double[10].
      **/
-    public DoubleArraySequence() {
-        // Implemented by student.
+    public DoubleArraySeq() {
+        this(10);
     }
 
     /**
@@ -67,8 +66,11 @@ public class DoubleArraySequence implements Cloneable {
      *                Indicates insufficient memory for: new
      *                double[initialCapacity].
      **/
-    public DoubleArraySequence(int initialCapacity) {
-        // Implemented by student.
+    public DoubleArraySeq(int initialCapacity) {
+        if(initialCapacity <= 0) {
+            throw new IllegalArgumentException("Negative initialCapacity: " + initialCapacity);
+        }
+        this.data = new double[initialCapacity];
     }
 
     /**
@@ -91,7 +93,19 @@ public class DoubleArraySequence implements Cloneable {
      *       cause the sequence to fail with an arithmetic overflow.
      **/
     public void addAfter(int element) {
-        // Implemented by student.
+        if(manyItems == data.length) {
+            ensureCapacity(manyItems * 2 + 1);
+        }
+        if(!isCurrent()) {
+            currentIndex = 0;
+        } else {
+            currentIndex++;
+        }
+        for(int i = currentIndex; i < manyItems; i++) {
+            data[i + 1] = data[i];
+        }
+        data[currentIndex] = element;
+        manyItems++;
     }
 
     /**
@@ -135,7 +149,7 @@ public class DoubleArraySequence implements Cloneable {
      * @note An attempt to increase the capacity beyond Integer.MAX_VALUE will
      *       cause an arithmetic overflow that will cause the sequence to fail.
      **/
-    public void addAll(DoubleArraySequence addend) {
+    public void addAll(DoubleArraySeq addend) {
         // Implemented by student.
     }
 
@@ -167,22 +181,19 @@ public class DoubleArraySequence implements Cloneable {
      *                Indicates insufficient memory for creating the clone.
      **/
     @Override
-    public DoubleArraySequence clone() { // Clone a DoubleArraySequence object.
-        DoubleArraySequence answer;
+    public DoubleArraySeq clone() {
+        // Clone a DoubleArraySeq object.
+        DoubleArraySeq answer;
 
         try {
-            answer = (DoubleArraySequence) super.clone();
-        } catch(CloneNotSupportedException e) { // This exception should not
-                                                // occur. But if it does, it
-                                                // would probably
-                                                // indicate a programming error
-                                                // that made super.clone
-                                                // unavailable.
-                                                // The most common error would
-                                                // be forgetting the
-                                                // "Implements Cloneable"
-                                                // clause at the start of this
-                                                // class.
+            answer = (DoubleArraySeq) super.clone();
+        } catch(CloneNotSupportedException e) {
+            // This exception should not occur. But if it does, it would
+            // probably
+            // indicate a programming error that made super.clone unavailable.
+            // The most common error would be forgetting the
+            // "Implements Cloneable"
+            // clause at the start of this class.
             throw new RuntimeException("This class does not implement Cloneable");
         }
 
@@ -210,7 +221,7 @@ public class DoubleArraySequence implements Cloneable {
      *       Integer.MAX_VALUE will cause an arithmetic overflow that will cause
      *       the sequence to fail.
      **/
-    public static DoubleArraySequence catenation(DoubleArraySequence s1, DoubleArraySequence s2) {
+    public static DoubleArraySeq catenation(DoubleArraySeq s1, DoubleArraySeq s2) {
         // Implemented by student.
     }
 
@@ -239,7 +250,7 @@ public class DoubleArraySequence implements Cloneable {
      * @return the current capacity of this sequence
      **/
     public int getCapacity() {
-        // Implemented by student.
+        return data.length;
     }
 
     /**
@@ -253,7 +264,11 @@ public class DoubleArraySequence implements Cloneable {
      *                may not be called.
      **/
     public double getCurrent() {
-        // Implemented by student.
+        if(true == this.isCurrent()) {
+            return data[currentIndex];
+        } else {
+            throw new IllegalStateException("there is no current element");
+        }
     }
 
     /**
@@ -264,8 +279,8 @@ public class DoubleArraySequence implements Cloneable {
      * @return true (there is a current element) or false (there is no current
      *         element at the moment)
      **/
-    public double isCurrent() {
-        // Implemented by student.
+    public boolean isCurrent() {
+        return 0 < manyItems ? true : false;
     }
 
     /**
@@ -282,7 +297,16 @@ public class DoubleArraySequence implements Cloneable {
      *                removeCurrent may not be called.
      **/
     public void removeCurrent() {
-        // Implemented by student.
+        if(manyItems - 1 < currentIndex) {
+            throw new IllegalStateException("There is no current element.");
+        }
+        for(int i = currentIndex; i < manyItems; i++) {
+            try {
+                data[i] = data[i + 1];
+            } catch(ArrayIndexOutOfBoundsException e) {
+            }
+        }
+        data[manyItems-- - 1] = 0;
     }
 
     /**
@@ -292,7 +316,7 @@ public class DoubleArraySequence implements Cloneable {
      * @return the number of elements in this sequence
      **/
     public int size() {
-        // Implemented by student.
+        return this.manyItems;
     }
 
     /**
@@ -304,7 +328,9 @@ public class DoubleArraySequence implements Cloneable {
      *                there is no current element).
      **/
     public void start() {
-        // Implemented by student.
+        if(data.length > 0) {
+            currentIndex = 0;
+        }
     }
 
     /**
