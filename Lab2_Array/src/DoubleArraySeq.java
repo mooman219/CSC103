@@ -74,6 +74,49 @@ public class DoubleArraySeq implements Cloneable {
     }
 
     /**
+     * A method to remove the element at the front of the sequence If there is a
+     * next element, make that element the current element. Throw an exception
+     * if the sequence is empty.
+     */
+    public void removeFront() {
+        this.start();
+        this.removeCurrent();
+    }
+
+    /**
+     * A method that makes the last element of the sequence the current Element.
+     * Throw an exception if the sequence is empty.
+     */
+    public void currentLast() {
+        double temp = data[currentIndex];
+        data[currentIndex] = data[data.length - 1];
+        data[data.length - 1] = temp;
+    }
+
+    /**
+     * a method that returns the i^th element of the sequence, and make current
+     * element to the i^th element Throw an exception if the sequence is empty,
+     * or if i is greater then the sequence size.
+     * 
+     * @param i
+     * @return
+     */
+    public double retrieveElement(int i) {
+        return data[i];
+    }
+
+    /**
+     * a method that makes the ith element become the current element Throw an
+     * exception if the sequence is empty, or if i is greater then the sequence
+     * size.
+     * 
+     * @param i
+     */
+    public void setCurrent(int i) {
+        this.currentIndex = i;
+    }
+
+    /**
      * Add a new element to this sequence, after the current element. If the new
      * element would take this sequence beyond its current capacity, then the
      * capacity is increased before adding the new element.
@@ -92,7 +135,7 @@ public class DoubleArraySeq implements Cloneable {
      * @note An attempt to increase the capacity beyond Integer.MAX_VALUE will
      *       cause the sequence to fail with an arithmetic overflow.
      **/
-    public void addAfter(int element) {
+    public void addEnd(int element) {
         if(manyItems == data.length) {
             ensureCapacity(manyItems * 2 + 1);
         }
@@ -127,7 +170,7 @@ public class DoubleArraySeq implements Cloneable {
      * @note An attempt to increase the capacity beyond Integer.MAX_VALUE will
      *       cause the sequence to fail with an arithmetic overflow.
      **/
-    public void addBefore(int element) {
+    public void addFront(int element) {
         if(manyItems == data.length) {
             ensureCapacity(manyItems * 2 + 1);
         }
@@ -345,7 +388,6 @@ public class DoubleArraySeq implements Cloneable {
      **/
     public void trimToSize() {
         double[] trimmedArray;
-
         if(data.length != manyItems) {
             trimmedArray = new double[manyItems];
             System.arraycopy(data, 0, trimmedArray, 0, manyItems);
