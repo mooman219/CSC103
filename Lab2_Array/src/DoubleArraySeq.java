@@ -61,56 +61,9 @@ public class DoubleArraySeq implements Cloneable {
         if(initialCapacity <= 0) {
             throw new IllegalArgumentException("Negative initialCapacity: " + initialCapacity);
         }
-        this.data = new double[initialCapacity];
-    }
-
-    /**
-     * A method to remove the element at the front of the sequence If there is a
-     * next element, make that element the current element. Throw an exception
-     * if the sequence is empty.
-     */
-    public void removeFront() {
-        this.start();
-        this.removeCurrent();
-    }
-
-    /**
-     * A method that makes the last element of the sequence the current Element.
-     * Throw an exception if the sequence is empty.
-     */
-    public void currentLast() {
-        if(manyItems <= 0) {
-            throw new IllegalStateException("The sequence is empty");
-        }
-        double temp = data[currentIndex];
-        data[currentIndex] = data[manyItems - 1];
-        data[manyItems - 1] = temp;
-    }
-
-    /**
-     * a method that returns the i^th element of the sequence, and make current
-     * element to the i^th element Throw an exception if the sequence is empty,
-     * or if i is greater then the sequence size.
-     * 
-     * @param i
-     * @return
-     */
-    public double retrieveElement(int i) {
-        return data[i];
-    }
-
-    /**
-     * a method that makes the ith element become the current element Throw an
-     * exception if the sequence is empty, or if i is greater then the sequence
-     * size.
-     * 
-     * @param i
-     */
-    public void setCurrent(int i) {
-        if(i < 0 || i > manyItems) {
-            throw new IllegalArgumentException("Given index of " + i + " is outside the bounds of the sequence");
-        }
-        this.currentIndex = i;
+        data = new double[initialCapacity];
+        manyItems = 0;
+        currentIndex = -1;
     }
 
     /**
@@ -129,7 +82,7 @@ public class DoubleArraySeq implements Cloneable {
      * @note An attempt to increase the capacity beyond Integer.MAX_VALUE will cause the
      *       sequence to fail with an arithmetic overflow.
      **/
-    public void addEnd(double element) {
+    public void addAfter(double element) {
         if(manyItems == data.length) {
             ensureCapacity(manyItems * 2 + 1);
         }
@@ -140,36 +93,6 @@ public class DoubleArraySeq implements Cloneable {
         }
         for(int i = currentIndex; i < manyItems; i++) {
             data[i + 1] = data[i];
-        }
-        data[currentIndex] = element;
-        manyItems++;
-    }
-
-    /**
-     * Add a new element to this sequence, before the current element. If the
-     * new element would take this sequence beyond its current capacity, then
-     * the capacity is increased before adding the new element.
-     * 
-     * @param element the new element that is being added
-     * @postcondition A new copy of the element has been added to this sequence. If there
-     *                was a current element, then the new element is placed before the
-     *                current element. If there was no current element, then the new
-     *                element is placed at the start of the sequence. In all cases, the
-     *                new element becomes the new current element of this sequence.
-     * @throws OutOfMemoryError Indicates insufficient memory for increasing the
-     *         sequence's capacity.
-     * @note An attempt to increase the capacity beyond Integer.MAX_VALUE will cause the
-     *       sequence to fail with an arithmetic overflow.
-     **/
-    public void addFront(double element) {
-        if(manyItems == data.length) {
-            ensureCapacity(manyItems * 2 + 1);
-        }
-        if(!isCurrent()) {
-            currentIndex = 0;
-        }
-        for(int i = manyItems; i > currentIndex; i--) {
-            data[i] = data[i - 1];
         }
         data[currentIndex] = element;
         manyItems++;
@@ -199,6 +122,56 @@ public class DoubleArraySeq implements Cloneable {
     }
 
     /**
+     * Add a new element to this sequence, before the current element. If the
+     * new element would take this sequence beyond its current capacity, then
+     * the capacity is increased before adding the new element.
+     * 
+     * @param element the new element that is being added
+     * @postcondition A new copy of the element has been added to this sequence. If there
+     *                was a current element, then the new element is placed before the
+     *                current element. If there was no current element, then the new
+     *                element is placed at the start of the sequence. In all cases, the
+     *                new element becomes the new current element of this sequence.
+     * @throws OutOfMemoryError Indicates insufficient memory for increasing the
+     *         sequence's capacity.
+     * @note An attempt to increase the capacity beyond Integer.MAX_VALUE will cause the
+     *       sequence to fail with an arithmetic overflow.
+     **/
+    public void addBefore(double element) {
+        if(manyItems == data.length) {
+            ensureCapacity(manyItems * 2 + 1);
+        }
+        if(!isCurrent()) {
+            currentIndex = 0;
+        }
+        for(int i = manyItems; i > currentIndex; i--) {
+            data[i] = data[i - 1];
+        }
+        data[currentIndex] = element;
+        manyItems++;
+    }
+
+    /**
+     * Adds the given element to the end of the sequence.
+     * 
+     * @param element The element to add.
+     */
+    public void addEnd(double element) {
+        gotoEnd();
+        addAfter(element);
+    }
+
+    /**
+     * Adds the given element to the start of the sequence.
+     * 
+     * @param element The element to add.
+     */
+    public void addFront(double element) {
+        gotoStart();
+        addBefore(element);
+    }
+
+    /**
      * Move forward, so that the current element is now the next element in this
      * sequence.
      * 
@@ -211,7 +184,10 @@ public class DoubleArraySeq implements Cloneable {
      *         advance may not be called.
      **/
     public void advance() {
-        this.currentIndex += 1;
+        if(!isCurrent()) {
+            throw new IllegalStateException("There is not current element, so it can't advance");
+        }
+        currentIndex++;
     }
 
     /**
@@ -266,6 +242,21 @@ public class DoubleArraySeq implements Cloneable {
     }
 
     /**
+     * Searches for the given element. The currentIndex is left unchanged by this.
+     * 
+     * @param element The number to search for.
+     * @return The index of the found element. If no element is found, retuns -1
+     */
+    public int find(double element) {
+        for(int i = 0; i < manyItems; i++) {
+            if(element == data[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
      * Accessor method to get the current capacity of this sequence. The add
      * method works efficiently (without needing more memory) until this
      * capacity is reached.
@@ -293,6 +284,40 @@ public class DoubleArraySeq implements Cloneable {
     }
 
     /**
+     * Determine the number of elements in this sequence.
+     * 
+     * @return the number of elements in this sequence
+     **/
+    public int getSize() {
+        return this.manyItems;
+    }
+
+    /**
+     * A method that makes the last element of the sequence the current Element.
+     * 
+     * @throws IllegalStateException If exception if the sequence is empty.
+     */
+    public void gotoEnd() {
+        if(manyItems <= 0) {
+            throw new IllegalStateException("The sequence is empty");
+        }
+        currentIndex = manyItems - 1;
+    }
+
+    /**
+     * Set the current element at the front of this sequence.
+     * 
+     * @postcondition The front element of this sequence is now the current element (but
+     *                if this sequence has no elements at all, then there is no current
+     *                element).
+     **/
+    public void gotoStart() {
+        if(data.length > 0) {
+            currentIndex = 0;
+        }
+    }
+
+    /**
      * Accessor method to determine whether this sequence has a specified
      * current element that can be retrieved with the getCurrent method.
      * 
@@ -300,7 +325,7 @@ public class DoubleArraySeq implements Cloneable {
      *         the moment)
      **/
     public boolean isCurrent() {
-        return 0 < manyItems ? true : false;
+        return currentIndex >= 0;
     }
 
     /**
@@ -328,26 +353,72 @@ public class DoubleArraySeq implements Cloneable {
         data[manyItems-- - 1] = 0;
     }
 
-    /**
-     * Determine the number of elements in this sequence.
-     * 
-     * @return the number of elements in this sequence
-     **/
-    public int size() {
-        return this.manyItems;
+    public void removeEnd() {
+        this.gotoEnd();
+        this.removeCurrent();
     }
 
     /**
-     * Set the current element at the front of this sequence.
+     * A method to remove the element at the front of the sequence If there is a
+     * next element, make that element the current element. Throw an exception
+     * if the sequence is empty.
+     */
+    public void removeFront() {
+        this.gotoStart();
+        this.removeCurrent();
+    }
+
+    /**
+     * A method that returns the i^th element of the sequence, and make current
+     * element to the i^th element Throw an exception if the sequence is empty,
+     * or if i is greater then the sequence size.
      * 
-     * @postcondition The front element of this sequence is now the current element (but
-     *                if this sequence has no elements at all, then there is no current
-     *                element).
-     **/
-    public void start() {
-        if(data.length > 0) {
-            currentIndex = 0;
+     * @param i
+     * @return
+     */
+    public double retrieveElement(int i) {
+        if(i < 0 || i >= manyItems) {
+            throw new IllegalArgumentException("Given index of " + i + " is outside the bounds of the sequence");
         }
+        return data[i];
+    }
+
+    /**
+     * a method that makes the ith element become the current element Throw an
+     * exception if the sequence is empty, or if i is greater then the sequence
+     * size.
+     * 
+     * @param i
+     */
+    public void setCurrent(int i) {
+        if(i < 0 || i >= manyItems) {
+            throw new IllegalArgumentException("Given index of " + i + " is outside the bounds of the sequence");
+        }
+        this.currentIndex = i;
+    }
+
+    @Override
+    public String toString() {
+        String ret = "";
+        ret += "manyItems: " + manyItems + "\n";
+        ret += "currentIndex: " + currentIndex + "\n";
+        ret += "data.length: " + data.length + "\n";
+        ret += "Active Array: [";
+        for(int i = 0; i < manyItems; i++) {
+            ret += data[i];
+            if(i != manyItems - 1) {
+                ret += ", ";
+            }
+        }
+        ret += "]\nRaw Array: [";
+        for(int i = 0; i < data.length; i++) {
+            ret += data[i];
+            if(i != data.length - 1) {
+                ret += ", ";
+            }
+        }
+        ret += "]";
+        return ret;
     }
 
     /**
@@ -364,29 +435,5 @@ public class DoubleArraySeq implements Cloneable {
             System.arraycopy(data, 0, trimmedArray, 0, manyItems);
             data = trimmedArray;
         }
-    }
-    
-    public String toString() {
-        String ret = "";
-        ret += "manyItems: " + manyItems + "\n";
-        ret += "currentIndex: " + currentIndex + "\n";
-        ret += "data.length: " + data.length + "\n";
-        ret += "Active Array: [";
-        for(int i = 0; i < manyItems; i++) {
-            if(i == manyItems - 1) {
-                ret += data[i] + "]\n";
-            } else {
-                ret += data[i] + ", ";
-            }
-        }
-        ret += "Raw Array: [";
-        for(int i = 0; i < data.length; i++) {
-            if(i == data.length - 1) {
-                ret += data[i] + "]\n";
-            } else {
-                ret += data[i] + ", ";
-            }
-        }
-        return ret;
     }
 }

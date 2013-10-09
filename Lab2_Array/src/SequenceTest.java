@@ -26,7 +26,6 @@ public class SequenceTest {
         for(double value : initalValues) {
             seq.addEnd(value);
         }
-        seq2.
         return seq;
     }
 }
