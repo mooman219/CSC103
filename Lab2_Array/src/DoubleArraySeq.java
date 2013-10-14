@@ -157,8 +157,12 @@ public class DoubleArraySeq implements Cloneable {
      * @param element The element to add.
      */
     public void addEnd(double element) {
-        gotoEnd();
-        addAfter(element);
+        if(manyItems == data.length) {
+            ensureCapacity(manyItems * 2 + 1);
+        }
+        currentIndex = manyItems;
+        data[currentIndex] = element;
+        manyItems++;
     }
 
     /**
@@ -167,8 +171,15 @@ public class DoubleArraySeq implements Cloneable {
      * @param element The element to add.
      */
     public void addFront(double element) {
-        gotoStart();
-        addBefore(element);
+        if(manyItems == data.length) {
+            ensureCapacity(manyItems * 2 + 1);
+        }
+        currentIndex = 0;
+        for(int i = manyItems; i > currentIndex; i--) {
+            data[i] = data[i - 1];
+        }
+        data[currentIndex] = element;
+        manyItems++;
     }
 
     /**
@@ -242,7 +253,8 @@ public class DoubleArraySeq implements Cloneable {
     }
 
     /**
-     * Searches for the given element. The currentIndex is left unchanged by this.
+     * Searches for the given element. The currentIndex is set to the found element, else
+     * is left unchanged if no element is found.
      * 
      * @param element The number to search for.
      * @return The index of the found element. If no element is found, retuns -1
@@ -250,6 +262,7 @@ public class DoubleArraySeq implements Cloneable {
     public int find(double element) {
         for(int i = 0; i < manyItems; i++) {
             if(element == data[i]) {
+                this.currentIndex = i;
                 return i;
             }
         }
@@ -400,24 +413,12 @@ public class DoubleArraySeq implements Cloneable {
     @Override
     public String toString() {
         String ret = "";
-        ret += "manyItems: " + manyItems + "\n";
-        ret += "currentIndex: " + currentIndex + "\n";
-        ret += "data.length: " + data.length + "\n";
-        ret += "Active Array: [";
+        ret += "The sequence: ";
         for(int i = 0; i < manyItems; i++) {
-            ret += data[i];
-            if(i != manyItems - 1) {
-                ret += ", ";
-            }
+            ret += data[i] + " ";
         }
-        ret += "]\nRaw Array: [";
-        for(int i = 0; i < data.length; i++) {
-            ret += data[i];
-            if(i != data.length - 1) {
-                ret += ", ";
-            }
-        }
-        ret += "]";
+        ret += "\nNumber of elements: " + manyItems + "\n";
+        ret += "Current element: " + getCurrent();
         return ret;
     }
 
