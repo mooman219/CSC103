@@ -4,9 +4,8 @@ public class Lab2 {
         Menu menu = new Menu();
         while(true) {
             menu.displayMenu();
-            int input = menu.promptInput();
+            int input = InputHelper.nextInteger("Please enter an option: ");
             menu.processInput(input);
-            menu.pause();
         }
     }
 }
