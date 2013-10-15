@@ -22,7 +22,7 @@ public class SequenceTest {
             seq1.addEnd(value);
         }
     }
-    
+
     public void deleteNumber(double number) {
         int currentIndex = seq1.find(number);
         if(currentIndex != -1) {
@@ -31,11 +31,11 @@ public class SequenceTest {
             System.out.println("Unable to find number [" + number + "]");
         }
     }
-    
+
     public void deleteFirstNumber() {
         seq1.removeFront();
     }
-    
+
     public void addNumberBeforeOther(double numberToAdd, double numberToFind) {
         int currentIndex = seq1.find(numberToFind);
         if(currentIndex != -1) {
@@ -44,7 +44,7 @@ public class SequenceTest {
             System.out.println("Unable to find number [" + numberToFind + "]");
         }
     }
-    
+
     public void addNumberAfterOther(double numberToAdd, double numberToFind) {
         int currentIndex = seq1.find(numberToFind);
         if(currentIndex != -1) {
@@ -53,7 +53,7 @@ public class SequenceTest {
             System.out.println("Unable to find number [" + numberToFind + "]");
         }
     }
-    
+
     public void printSequence() {
         System.out.println(seq1.toString());
     }
