@@ -418,7 +418,11 @@ public class DoubleArraySeq implements Cloneable {
             ret += data[i] + " ";
         }
         ret += "\nNumber of elements: " + manyItems + "\n";
-        ret += "Current element: " + getCurrent();
+        try {
+            ret += "Current element: " + getCurrent();
+        } catch(IllegalStateException e) {
+            ret += "Current element: N/A";
+        }
         return ret;
     }
 

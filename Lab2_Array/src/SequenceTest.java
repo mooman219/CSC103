@@ -1,60 +1,144 @@
 import java.util.List;
 
 public class SequenceTest {
-    private DoubleArraySeq seq1 = new DoubleArraySeq(); // The original sequence.
-    private DoubleArraySeq seq2; // The second sequence to be created.
-    private DoubleArraySeq seq3; // The cloned sequence.
+    private DoubleArraySeq seq = new DoubleArraySeq(); // The original sequence.
+    private DoubleArraySeq seqCloned = new DoubleArraySeq(); // The cloned sequence.
 
-    public void displayMenu() {
-        System.out.println("6. Add a number to the end of the sequence");
-        System.out.println("7. Display a number at a certain index");
-        System.out.println("8. Display the last element in the sequence");
-        System.out.println("9. Replace a number with another number");
-        System.out.println("10. Append another sequence to the first sequence");
-        System.out.println("11. Create a clone sequence");
-        System.out.println("12  Print the sequence");
-        System.out.println("13. Quit\n");
-    }
-
+    /**
+     * Sets the 'seq' variable to a new DoubleArraySeq with the given values.
+     * 
+     * @param initalValues The values to add to the sequence.
+     */
     public void createSequence(List<Double> initalValues) {
-        seq1 = new DoubleArraySeq(initalValues.size());
+        seq = new DoubleArraySeq(initalValues.size());
         for(double value : initalValues) {
-            seq1.addEnd(value);
+            seq.addEnd(value);
         }
     }
 
+    /**
+     * Scans the 'seq' for the given number, deleting it if found.
+     * 
+     * @param number The number to find and delete.
+     */
     public void deleteNumber(double number) {
-        int currentIndex = seq1.find(number);
+        int currentIndex = seq.find(number);
         if(currentIndex != -1) {
-            seq1.removeCurrent();
+            seq.removeCurrent();
         } else {
             System.out.println("Unable to find number [" + number + "]");
         }
     }
 
+    /**
+     * Deletes the first number in 'seq'
+     */
     public void deleteFirstNumber() {
-        seq1.removeFront();
+        seq.removeFront();
     }
 
+    /**
+     * Adds 'numberToAdd' before the 'numberToFind' if it can find the value.
+     * 
+     * @param numberToAdd The number to add.
+     * @param numberToFind The number to find.
+     */
     public void addNumberBeforeOther(double numberToAdd, double numberToFind) {
-        int currentIndex = seq1.find(numberToFind);
+        int currentIndex = seq.find(numberToFind);
         if(currentIndex != -1) {
-            seq1.addBefore(numberToAdd);
+            seq.addBefore(numberToAdd);
         } else {
             System.out.println("Unable to find number [" + numberToFind + "]");
         }
     }
 
+    /**
+     * Adds the 'numberToAdd' after the 'numberToFind' if it can find the value.
+     * 
+     * @param numberToAdd The number to add.
+     * @param numberToFind The number to find.
+     */
     public void addNumberAfterOther(double numberToAdd, double numberToFind) {
-        int currentIndex = seq1.find(numberToFind);
+        int currentIndex = seq.find(numberToFind);
         if(currentIndex != -1) {
-            seq1.addAfter(numberToAdd);
+            seq.addAfter(numberToAdd);
         } else {
             System.out.println("Unable to find number [" + numberToFind + "]");
         }
     }
 
+    /**
+     * Appends the given number to the end of 'seq'.
+     * 
+     * @param number The number to add.
+     */
+    public void addNumberToEnd(double number) {
+        seq.addEnd(number);
+    }
+
+    /**
+     * Displays the number at the desired index. This method can throw an exception if the
+     * given index is out of bounds.
+     * 
+     * @param index The index to read.
+     */
+    public void displayNumber(int index) {
+        System.out.println("The number at index " + index + " is: " + seq.retrieveElement(index));
+
+    }
+
+    /**
+     * Displays the last number in the sequence.
+     */
+    public void displaLastNumber() {
+        seq.gotoEnd();
+        System.out.println("The last number in the sequence is " + seq.getCurrent());
+    }
+
+    /**
+     * Replaces the 'numberToFind' with the 'numberToAdd'.
+     * 
+     * @param numberToAdd The number to add.
+     * @param numberToFind The number to find and be replaced.
+     */
+    public void replaceNumber(double numberToAdd, double numberToFind) {
+        int currentIndex = seq.find(numberToFind);
+        if(currentIndex != -1) {
+            seq.removeCurrent();
+            seq.addBefore(numberToAdd);
+        } else {
+            System.out.println("Unable to find number [" + numberToFind + "]");
+        }
+    }
+
+    /**
+     * Appends the list of given values to the end of the original sequence.
+     * 
+     * @param initalValues The inital values to be appended.
+     */
+    public void appendedSequence(List<Double> initalValues) {
+        DoubleArraySeq seqAppend = new DoubleArraySeq(initalValues.size());
+        for(double value : initalValues) {
+            seqAppend.addEnd(value);
+        }
+        seq.addAll(seqAppend);
+    }
+
+    /**
+     * Creates a cloned sequence of the original sequence and stores it in the 'seqCloned'
+     * variable.
+     */
+    public void createCloned() {
+        seqCloned = seq.clone();
+    }
+
+    /**
+     * Prints both the original sequence and the cloned sequence to the screen.
+     */
     public void printSequence() {
-        System.out.println(seq1.toString());
+        System.out.println("Original Sequence:");
+        System.out.println(seq.toString());
+        System.out.println("\nCloned Sequence:");
+        System.out.println(seqCloned.toString());
     }
 }

@@ -1,4 +1,3 @@
-
 public class Menu {
     /*
      * The 'sequenceInstance' is the menus instance of the SequenceTest class. A new
@@ -10,7 +9,7 @@ public class Menu {
      * Displays all possible options for the user to enter.
      */
     public void displayMenu() {
-      System.out.println("\n[#] Option                              [#] Option");
+        System.out.println("\n[#] Option");
         System.out.println("[1] Create a sequence                   [7] Display a number at a certain index");
         System.out.println("[2] Delete a number                     [8] Display the last element in the sequence");
         System.out.println("[3] Delete the first number             [9] Replace a number with another number");
@@ -44,30 +43,31 @@ public class Menu {
             break;
         case 4:
             System.out.println("You selected [4. Add a number before another number]");
-            sequenceInstance.addNumberBeforeOther(
-                    InputHelper.nextDouble("Input (Number to add): "),
-                    InputHelper.nextDouble("Input (Number to find): "));
+            sequenceInstance.addNumberBeforeOther(InputHelper.nextDouble("Input (Number to add): "), InputHelper.nextDouble("Input (Number to find): "));
             break;
         case 5:
             System.out.println("You selected [5. Add a number after a number]");
-            sequenceInstance.addNumberAfterOther(
-                    InputHelper.nextDouble("Input (Number to add): "),
-                    InputHelper.nextDouble("Input (Number to find): "));
+            sequenceInstance.addNumberAfterOther(InputHelper.nextDouble("Input (Number to add): "), InputHelper.nextDouble("Input (Number to find): "));
             break;
         case 6:
             System.out.println("You selected [6. Add a number to the end of the sequence]");
+            sequenceInstance.addNumberToEnd(InputHelper.nextDouble("Input: "));
             break;
         case 7:
             System.out.println("You selected [7. Display a number at a certain index]");
+            sequenceInstance.displayNumber(InputHelper.nextInteger("Input: "));
             break;
         case 8:
             System.out.println("You selected [8. Display the last element in the sequence]");
+            sequenceInstance.displaLastNumber();
             break;
         case 9:
             System.out.println("You selected [9. Replace a number with another number]");
+            sequenceInstance.replaceNumber(InputHelper.nextDouble("Input (Number to add): "), InputHelper.nextDouble("Input (Number to find): "));
             break;
         case 10:
             System.out.println("You selected [10. Append another sequence to the first sequence]");
+            sequenceInstance.appendedSequence(InputHelper.nextDoubles("Input: "));
             break;
         case 11:
             System.out.println("You selected [11. Create a clone sequence]");
