@@ -1,5 +1,11 @@
 import java.util.List;
 
+/**
+ * This program will perform operations on a DoubleArraySeq based on the users input.
+ * 
+ * @author Joe Cumbo
+ * @since 10/7/2013
+ */
 public class SequenceTest {
     private DoubleArraySeq seq = new DoubleArraySeq(); // The original sequence.
     private DoubleArraySeq seqCloned = new DoubleArraySeq(); // The cloned sequence.
