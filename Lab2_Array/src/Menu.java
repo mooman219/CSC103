@@ -49,11 +49,11 @@ public class Menu {
             break;
         case 4:
             System.out.println("You selected [4. Add a number before another number]");
-            sequenceInstance.addNumberBeforeOther(InputHelper.nextDouble("Input (Number to add): "), InputHelper.nextDouble("Input (Number to find): "));
+            sequenceInstance.addNumberBeforeOther(InputHelper.nextDouble("Input (Number to add): "), InputHelper.nextInteger("Input (Index): "));
             break;
         case 5:
             System.out.println("You selected [5. Add a number after a number]");
-            sequenceInstance.addNumberAfterOther(InputHelper.nextDouble("Input (Number to add): "), InputHelper.nextDouble("Input (Number to find): "));
+            sequenceInstance.addNumberAfterOther(InputHelper.nextDouble("Input (Number to add): "), InputHelper.nextInteger("Input (Index): "));
             break;
         case 6:
             System.out.println("You selected [6. Add a number to the end of the sequence]");
@@ -77,6 +77,7 @@ public class Menu {
             break;
         case 11:
             System.out.println("You selected [11. Create a clone sequence]");
+            sequenceInstance.createCloned();
             break;
         case 12:
             System.out.println("You selected [12. Print the sequence]");

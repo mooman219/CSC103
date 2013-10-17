@@ -44,32 +44,32 @@ public class SequenceTest {
     }
 
     /**
-     * Adds 'numberToAdd' before the 'numberToFind' if it can find the value.
+     * Adds 'number' before the 'index'. If the index is out of bounds, nothing happens.
      * 
-     * @param numberToAdd The number to add.
-     * @param numberToFind The number to find.
+     * @param number The number to be added.
+     * @param index The index to place the number at.
      */
-    public void addNumberBeforeOther(double numberToAdd, double numberToFind) {
-        int currentIndex = seq.find(numberToFind);
-        if(currentIndex != -1) {
-            seq.addBefore(numberToAdd);
-        } else {
-            System.out.println("Unable to find number [" + numberToFind + "]");
+    public void addNumberBeforeOther(double number, int index) {
+        try {
+            seq.setCurrent(index);
+            seq.addBefore(number);
+        } catch(Exception e) {
+            System.out.println("The given index " + index + " is out of bounds.");
         }
     }
 
     /**
-     * Adds the 'numberToAdd' after the 'numberToFind' if it can find the value.
+     * Adds 'number' after the 'index'. If the index is out of bounds, nothing happens.
      * 
-     * @param numberToAdd The number to add.
-     * @param numberToFind The number to find.
+     * @param number The number to be added.
+     * @param index The index to place the number at.
      */
-    public void addNumberAfterOther(double numberToAdd, double numberToFind) {
-        int currentIndex = seq.find(numberToFind);
-        if(currentIndex != -1) {
-            seq.addAfter(numberToAdd);
-        } else {
-            System.out.println("Unable to find number [" + numberToFind + "]");
+    public void addNumberAfterOther(double number, int index) {
+        try {
+            seq.setCurrent(index);
+            seq.addAfter(number);
+        } catch(Exception e) {
+            System.out.println("The given index " + index + " is out of bounds.");
         }
     }
 
