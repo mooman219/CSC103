@@ -7,7 +7,9 @@ import java.util.List;
  * @since 10/7/2013
  */
 public class SequenceTest {
-    private DoubleArraySeq seq = new DoubleArraySeq(); // The original sequence.
+    private boolean currentSequence = true;
+    private DoubleArraySeq seqA = new DoubleArraySeq(); // The original sequence.
+    private DoubleArraySeq seqB = new DoubleArraySeq(); // The second sequence.
     private DoubleArraySeq seqCloned = new DoubleArraySeq(); // The cloned sequence.
 
     /**
@@ -16,9 +18,18 @@ public class SequenceTest {
      * @param initalValues The values to add to the sequence.
      */
     public void createSequence(List<Double> initalValues) {
-        seq = new DoubleArraySeq(initalValues.size());
-        for(double value : initalValues) {
-            seq.addEnd(value);
+        if(currentSequence) {
+            seqA = new DoubleArraySeq(initalValues.size());
+            for(double value : initalValues) {
+                seqA.addEnd(value);
+            }
+            currentSequence = !currentSequence;
+        } else {
+            seqB = new DoubleArraySeq(initalValues.size());
+            for(double value : initalValues) {
+                seqB.addEnd(value);
+            }
+            currentSequence = !currentSequence;
         }
     }
 
@@ -28,11 +39,11 @@ public class SequenceTest {
      * @param number The number to find and delete.
      */
     public void deleteNumber(double number) {
-        int currentIndex = seq.find(number);
+        int currentIndex = seqA.find(number);
         if(currentIndex != -1) {
-            seq.removeCurrent();
+            seqA.removeCurrent();
         } else {
-            System.out.println("Unable to find number [" + number + "]");
+            System.out.println("Unable to find number " + number + "");
         }
     }
 
@@ -40,7 +51,7 @@ public class SequenceTest {
      * Deletes the first number in 'seq'
      */
     public void deleteFirstNumber() {
-        seq.removeFront();
+        seqA.removeFront();
     }
 
     /**
@@ -49,10 +60,10 @@ public class SequenceTest {
      * @param number The number to be added.
      * @param index The index to place the number at.
      */
-    public void addNumberBeforeOther(double number, int index) {
+    public void addNumberBeforeOther(int index, double number) {
         try {
-            seq.setCurrent(index);
-            seq.addBefore(number);
+            seqA.setCurrent(index);
+            seqA.addBefore(number);
         } catch(Exception e) {
             System.out.println("The given index " + index + " is out of bounds.");
         }
@@ -64,10 +75,10 @@ public class SequenceTest {
      * @param number The number to be added.
      * @param index The index to place the number at.
      */
-    public void addNumberAfterOther(double number, int index) {
+    public void addNumberAfterOther(int index, double number) {
         try {
-            seq.setCurrent(index);
-            seq.addAfter(number);
+            seqA.setCurrent(index);
+            seqA.addAfter(number);
         } catch(Exception e) {
             System.out.println("The given index " + index + " is out of bounds.");
         }
@@ -79,7 +90,7 @@ public class SequenceTest {
      * @param number The number to add.
      */
     public void addNumberToEnd(double number) {
-        seq.addEnd(number);
+        seqA.addEnd(number);
     }
 
     /**
@@ -89,16 +100,15 @@ public class SequenceTest {
      * @param index The index to read.
      */
     public void displayNumber(int index) {
-        System.out.println("The number at index " + index + " is: " + seq.retrieveElement(index));
-
+        System.out.println("The number at index " + index + " is: " + seqA.retrieveElement(index));
     }
 
     /**
      * Displays the last number in the sequence.
      */
     public void displaLastNumber() {
-        seq.gotoEnd();
-        System.out.println("The last number in the sequence is " + seq.getCurrent());
+        seqA.gotoEnd();
+        System.out.println("The last number in the sequence is " + seqA.getCurrent());
     }
 
     /**
@@ -108,10 +118,10 @@ public class SequenceTest {
      * @param numberToFind The number to find and be replaced.
      */
     public void replaceNumber(double numberToAdd, double numberToFind) {
-        int currentIndex = seq.find(numberToFind);
+        int currentIndex = seqA.find(numberToFind);
         if(currentIndex != -1) {
-            seq.removeCurrent();
-            seq.addBefore(numberToAdd);
+            seqA.removeCurrent();
+            seqA.addBefore(numberToAdd);
         } else {
             System.out.println("Unable to find number [" + numberToFind + "]");
         }
@@ -123,11 +133,7 @@ public class SequenceTest {
      * @param initalValues The inital values to be appended.
      */
     public void appendedSequence(List<Double> initalValues) {
-        DoubleArraySeq seqAppend = new DoubleArraySeq(initalValues.size());
-        for(double value : initalValues) {
-            seqAppend.addEnd(value);
-        }
-        seq.addAll(seqAppend);
+        seqA.addAll(seqB);
     }
 
     /**
@@ -135,16 +141,28 @@ public class SequenceTest {
      * variable.
      */
     public void createCloned() {
-        seqCloned = seq.clone();
+        seqCloned = seqA.clone();
     }
 
     /**
-     * Prints both the original sequence and the cloned sequence to the screen.
+     * Prints the sequence.
+     * 
+     * @param sequence 2 prints the second sequence 3 prints the cloned sequence, anything
+     *        else prints the original sequence.
      */
-    public void printSequence() {
-        System.out.println("Original Sequence:");
-        System.out.println(seq.toString());
-        System.out.println("\nCloned Sequence:");
-        System.out.println(seqCloned.toString());
+    public void printSequence(int sequence) {
+        switch(sequence) {
+        case 2:
+            System.out.println("Secondary Sequence:");
+            System.out.println(seqB.toString());
+            break;
+        case 3:
+            System.out.println("Cloned Sequence:");
+            System.out.println(seqCloned.toString());
+            break;
+        default:
+            System.out.println("Original Sequence:");
+            System.out.println(seqA.toString());
+        }
     }
 }

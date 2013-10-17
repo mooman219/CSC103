@@ -14,6 +14,10 @@ public class InputHelper {
      * The 'scanner' object is used to collect user input.
      */
     private static Scanner scanner = new Scanner(System.in);
+    /*
+     * The string used when splitting a line for the StringTokenizer.
+     */
+    private static final String splitString = " ,-";
 
     /**
      * Gets the scanner that reads from the default input stream.
@@ -45,7 +49,7 @@ public class InputHelper {
     }
 
     /**
-     * Gets a list of doubles that the user enters seperated by either a ' ' or ','.
+     * Gets a list of doubles that the user enters seperated by either a " ,-".
      * 
      * @param prompt The text to prompt to the user when entering the numbers.
      * @return The list of numbers that the user entered.
@@ -55,7 +59,7 @@ public class InputHelper {
         while(true) {
             ret.clear();
             System.out.print(prompt);
-            StringTokenizer tokenizer = new StringTokenizer(scanner.nextLine(), " ,");
+            StringTokenizer tokenizer = new StringTokenizer(scanner.nextLine(), splitString);
             if(tokenizer.countTokens() > 0) {
                 try {
                     while(tokenizer.hasMoreTokens()) {
@@ -93,7 +97,7 @@ public class InputHelper {
     }
 
     /**
-     * Gets a list of integers that the user enters seperated by either a ' ' or ','.
+     * Gets a list of integers that the user enters seperated by either a " ,-".
      * 
      * @param prompt The text to prompt to the user when entering the numbers.
      * @return The list of numbers that the user entered.
@@ -103,7 +107,7 @@ public class InputHelper {
         while(true) {
             ret.clear();
             System.out.print(prompt);
-            StringTokenizer tokenizer = new StringTokenizer(scanner.nextLine(), " ,");
+            StringTokenizer tokenizer = new StringTokenizer(scanner.nextLine(), splitString);
             if(tokenizer.countTokens() > 0) {
                 try {
                     while(tokenizer.hasMoreTokens()) {
@@ -121,16 +125,21 @@ public class InputHelper {
     }
 
     /**
-     * Reads a line and parses it into an double.
+     * Reads a line and parses it into an double. If there are multiple values in the line,
+     * it will try to read the first value.
      * 
      * @param line The line to parse.
-     * @return An double represented by the line.
+     * @return A double represented by the line.
      * @throws IllegalArgumentException If the length of the line is not long enough.
      * @throws NumberFormatException If there is an error processing the line.
      */
     public static double parseDouble(String line) {
         if(line.length() == 0) {
             throw new IllegalArgumentException("Line not long enough");
+        }
+        StringTokenizer tokenizer = new StringTokenizer(line, splitString);
+        if(tokenizer.countTokens() >= 1) {
+            return Double.parseDouble(tokenizer.nextToken());
         }
         return Double.parseDouble(line);
     }
@@ -148,7 +157,7 @@ public class InputHelper {
             throw new IllegalArgumentException("Line not long enough");
         }
         List<Double> ret = new ArrayList<Double>();
-        StringTokenizer tokenizer = new StringTokenizer(scanner.nextLine(), " ,");
+        StringTokenizer tokenizer = new StringTokenizer(line, splitString);
         while(tokenizer.hasMoreTokens()) {
             try {
                 ret.add(Double.parseDouble(tokenizer.nextToken()));
@@ -159,7 +168,8 @@ public class InputHelper {
     }
 
     /**
-     * Reads a line and parses it into an int.
+     * Reads a line and parses it into an int. If there are multiple values in the line,
+     * it will try to read the first value.
      * 
      * @param line The line to parse.
      * @return An int represented by the line.
@@ -169,6 +179,10 @@ public class InputHelper {
     public static int parseInteger(String line) {
         if(line.length() == 0) {
             throw new IllegalArgumentException("Line not long enough");
+        }
+        StringTokenizer tokenizer = new StringTokenizer(line, splitString);
+        if(tokenizer.countTokens() >= 1) {
+            return Integer.parseInt(tokenizer.nextToken());
         }
         return Integer.parseInt(line);
     }
@@ -186,7 +200,7 @@ public class InputHelper {
             throw new IllegalArgumentException("Line not long enough");
         }
         List<Integer> ret = new ArrayList<Integer>();
-        StringTokenizer tokenizer = new StringTokenizer(scanner.nextLine(), " ,");
+        StringTokenizer tokenizer = new StringTokenizer(line, splitString);
         while(tokenizer.hasMoreTokens()) {
             try {
                 ret.add(Integer.parseInt(tokenizer.nextToken()));
