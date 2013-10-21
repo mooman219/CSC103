@@ -133,18 +133,17 @@ public class DoubleLinkedSeq implements Cloneable {
      *            Indicates insufficient memory to increase the size of this sequence.
      **/
     public void addAll(DoubleLinkedSeq addend) {
-        Node<Double> [] copy;
+        Node<Double>[] copy;
         if(addend == null) {
-            throw new IllegalArgumentException
-                ("addAll:  addend is null");
+            throw new IllegalArgumentException("addAll:  addend is null");
         }
-        if(addend.size()>0) {
+        if(addend.size() > 0) {
             copy = Node.listCopyWithTail(addend.head);
             tail.getLink().setLink(copy[0]);
             copy[1].setLink(null);
             tail.setLink(copy[0]);
             manyNodes += addend.size();
-        } 
+        }
     }
 
     /**
@@ -163,7 +162,11 @@ public class DoubleLinkedSeq implements Cloneable {
      *            called.
      **/
     public void advance() {
-        // Implemented by student.
+        if(!isCurrent()) {
+            return;
+        }
+        precursor = cursor;
+        cursor = cursor.getLink();
     }
 
     /**
@@ -178,10 +181,15 @@ public class DoubleLinkedSeq implements Cloneable {
      *            Indicates insufficient memory for creating the clone.
      **/
     @Override
-    public Object clone() {  // Clone a DoubleLinkedSeq object.
-        // Student will replace this return statement with their own
-        // code:
-        return null;
+    public Object clone() {
+        DoubleLinkedSeq answer;
+        try {
+            answer = (DoubleLinkedSeq) super.clone();
+        } catch(CloneNotSupportedException e) {
+            throw new RuntimeException("This class does not implement Cloneable.");
+        }
+        answer.head = Node.listCopy(head);
+        return answer;
     }
 
     /**
@@ -201,8 +209,13 @@ public class DoubleLinkedSeq implements Cloneable {
      *            Indicates insufficient memory for the new sequence.
      **/
     public static DoubleLinkedSeq catenation(DoubleLinkedSeq s1, DoubleLinkedSeq s2) {
-        // Student will replace this return statement with their own code:
-        return null;
+        if((s1 == null) || (s1 == null)) {
+            throw new IllegalArgumentException("concatenation:  one argument is null");
+        }
+        DoubleLinkedSeq answer = new DoubleLinkedSeq();
+        answer.addAll(s1);
+        answer.addAll(s2);
+        return answer;
     }
 
     /**
@@ -217,8 +230,10 @@ public class DoubleLinkedSeq implements Cloneable {
      *            be called.
      **/
     public double getCurrent() {
-        // Student will replace this return statement with their own code:
-        return 0;
+        if(!isCurrent()) {
+            throw new IllegalStateException("getCurrent: isCurrent() is null");
+        }
+        return cursor.getData();
     }
 
     /**
@@ -252,7 +267,43 @@ public class DoubleLinkedSeq implements Cloneable {
      *            not be called.
      **/
     public void removeCurrent() {
-        // Implemented by student.
+        if(!isCurrent()) {
+            throw new IllegalStateException("removeCurrent: isCurrent() is null");
+        }
+        if(tail == head) {
+            head = null;
+            tail = null;
+            cursor = head;
+            precursor = head;
+            manyNodes--;
+            return;
+        }
+
+        if(cursor == tail) {
+            tail = precursor;
+            tail.setLink(null);
+            cursor = tail;
+            precursor = head;
+            while(precursor.getLink() != cursor) {
+                if(precursor.getLink() == null) {
+                    break;
+                }
+                precursor = precursor.getLink();
+            }
+            manyNodes--;
+            return;
+        }
+
+        if(cursor == head) {
+            head = head.getLink();
+            cursor = head;
+            precursor = head;
+            manyNodes--;
+            return;
+        }
+        cursor = cursor.getLink();
+        precursor.setLink(cursor);
+        manyNodes--;
     }
 
     /**
@@ -263,8 +314,7 @@ public class DoubleLinkedSeq implements Cloneable {
      *         the number of elements in this sequence
      **/
     public int size() {
-        // Student will replace this return statement with their own code:
-        return 0;
+        return manyNodes;
     }
 
     /**
@@ -275,6 +325,10 @@ public class DoubleLinkedSeq implements Cloneable {
      *        this sequence has no elements at all, then there is no current element).
      **/
     public void start() {
-        // Implemented by student.
+        if(head == null) {
+            cursor = null;
+        }
+        cursor = head;
+        precursor = head;
     }
 }
