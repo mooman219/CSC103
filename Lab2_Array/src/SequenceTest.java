@@ -18,6 +18,9 @@ public class SequenceTest {
      * @param initalValues The values to add to the sequence.
      */
     public void createSequence(List<Double> initalValues) {
+        long[] array = new long[2];
+        array[0] = new Integer(4);
+        
         if(currentSequence) {
             seqA = new DoubleArraySeq(initalValues.size());
             for(double value : initalValues) {
@@ -117,7 +120,7 @@ public class SequenceTest {
      * @param numberToAdd The number to add.
      * @param numberToFind The number to find and be replaced.
      */
-    public void replaceNumber(double numberToAdd, double numberToFind) {
+    public void replaceNumber(double numberToFind, double numberToAdd) {
         int currentIndex = seqA.find(numberToFind);
         if(currentIndex != -1) {
             seqA.removeCurrent();
@@ -132,7 +135,7 @@ public class SequenceTest {
      * 
      * @param initalValues The inital values to be appended.
      */
-    public void appendedSequence(List<Double> initalValues) {
+    public void appendedSequence() {
         seqA.addAll(seqB);
     }
 

@@ -113,12 +113,8 @@ public class Menu {
                 break;
             case 10:
                 printInfo("10. Append another sequence to the first sequence");
-                if(arguments.size() <= 0) {
-                    System.out.println("Not enough information.");
-                } else {
-                    sequenceInstance.appendedSequence(arguments);
-                    sequenceInstance.printSequence(1);
-                }
+                sequenceInstance.appendedSequence();
+                sequenceInstance.printSequence(1);
                 break;
             case 11:
                 printInfo("11. Create a clone sequence");
