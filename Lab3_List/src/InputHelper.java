@@ -125,8 +125,8 @@ public class InputHelper {
     }
 
     /**
-     * Reads a line and parses it into an double. If there are multiple values in the line,
-     * it will try to read the first value.
+     * Reads a line and parses it into an double. If there are multiple values in the
+     * line, it will try to read the first value.
      * 
      * @param line The line to parse.
      * @return A double represented by the line.
