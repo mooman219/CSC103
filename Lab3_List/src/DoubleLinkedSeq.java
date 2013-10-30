@@ -1,3 +1,5 @@
+import java.util.NoSuchElementException;
+
 // File: DoubleLinkedSeq.java from the package edu.colorado.collections
 
 // This is an assignment for students to complete after reading Chapter 4 of
@@ -13,14 +15,16 @@
  * accessed through four methods that are not available in the sequence class
  * (start, getCurrent, advance and isCurrent).
  * <dl>
- * <dt><b>Limitations:</b> Beyond Int.MAX_VALUE</CODE> elements, the size</CODE> method
- * does not work.
+ * <dt><b>Limitations:</b> Beyond Int.MAX_VALUE</CODE> elements, the size</CODE>
+ * method does not work.
  * <dt><b>Note:</b>
  * <dd>This file contains only blank implementations ("stubs") because this is a
  * Programming Project for my students.
  * <dt><b>Outline of Java Source Code for this class:</b>
  * <dd><A HREF="../../../../edu/colorado/collections/DoubleLinkedSeq.java">
- * http://www.cs.colorado.edu/~main/edu/colorado/collections/DoubleLinkedSeq.java </A>
+ * http:
+ * //www.cs.colorado.edu/~main/edu/colorado/collections/DoubleLinkedSeq.java
+ * </A>
  * </dl>
  * 
  * @version
@@ -30,21 +34,156 @@ public class DoubleLinkedSeq implements Cloneable {
     private Node<Double> head;  // pointer to first element in sequence
     private Node<Double> tail;  // pointer to last element in sequence
     private Node<Double> cursor;    // pointer to current element
-    private Node<Double> precursor; // pointer to element just before current element
     private int manyNodes;  // number of elements in sequence
 
     /**
      * Initialize an empty sequence.
      * 
-     * @param - none <dt><b>Postcondition:</b>
-     *        <dd>This sequence is empty.
+     * @postcondition This sequence is empty.
      **/
     public DoubleLinkedSeq() {
         head = null;
         tail = null;
         cursor = head;
-        precursor = head;
         manyNodes = 0;
+    }
+
+    /**
+     * Locates the node with the given element and sets the cursor to that node.
+     * If the given element cannot be found, this returns null and does not
+     * alter the cursor.
+     * 
+     * @param element - The element to find.
+     * @return The node that was found.
+     */
+    public Node<Double> find(double element) {
+        if(manyNodes == 0) {
+            return null;
+        } else {
+            Node<Double> current = head;
+            while(current != null) {
+                if(current.getData().equals(element)) {
+                    cursor = current;
+                    return current;
+                }
+                current = current.getLink();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Adds the given element to the front of the list.
+     * 
+     * @param element The element to add
+     * @postcondition The given element is now the head of the list.
+     */
+    public void addFront(double element) {
+        if(manyNodes == 0) {
+            head = new Node<Double>(element, null);
+            tail = head;
+        } else {
+            head = new Node<Double>(element, head);
+        }
+        cursor = head;
+        manyNodes++;
+    }
+
+    /**
+     * Adds the given element to the end of the list.
+     * 
+     * @param element - The element to add.
+     * @postcondition The given element is now the end of the list.
+     */
+    public void addEnd(double element) {
+        if(manyNodes == 0) {
+            head = new Node<Double>(element, null);
+            tail = head;
+        } else {
+            tail.addNodeAfter(element);
+            tail = tail.getLink();
+        }
+        cursor = tail;
+        manyNodes++;
+    }
+
+    /**
+     * Gets the index of the cursor with the head being 0 and the tail being
+     * size - 1.
+     * 
+     * @return The index of the cursor.
+     * @throws IllegalStateException If the cursor is null.
+     */
+    public int getIndex() {
+        if(!isCurrent()) {
+            throw new IllegalStateException("getCurrent: isCurrent() is null");
+        }
+        Node<Double> current = head;
+        int index = 0;
+        while(current != cursor) {
+            current = current.getLink();
+            index++;
+        }
+        return index;
+    }
+
+    /**
+     * Sets the cursor position to that of the given index.
+     * 
+     * @param index - The index to set the cursor to.
+     * @throws IllegalArgumentException if the index is out of bounds.
+     */
+    public void setCursor(int index) {
+        if(index < 0 || index >= manyNodes) {
+            throw new IllegalArgumentException("get: index: " + index + ", is out of bounds for size: " + manyNodes);
+        }
+        cursor = head;
+        int i = 0;
+        while(i != index) {
+            i++;
+            cursor = cursor.getLink();
+        }
+    }
+
+    /**
+     * Gets the data at the given index. The head has an index of 0 while the
+     * tail has an index of size - 1.
+     * 
+     * @param index - The index of the node.
+     * @return Value at the given index.
+     * @throws IllegalArgumentException if the index is out of bounds.
+     */
+    public double get(int index) {
+        if(index < 0 || index >= manyNodes) {
+            throw new IllegalArgumentException("get: index: " + index + ", is out of bounds for size: " + manyNodes);
+        }
+        Node<Double> current = head;
+        int i = 0;
+        while(current != null) {
+            if(i == index) {
+                return current.getData();
+            }
+            current = current.getLink();
+            i++;
+        }
+        return tail.getData();
+    }
+
+    /**
+     * Removes the head of the list.
+     * 
+     * @throws NoSuchElementException Indicates that there is no head to remove.
+     */
+    public void removeFront() {
+        if(manyNodes == 0) {
+            throw new NoSuchElementException("removeFront: list is empty");
+        }
+        head = head.getLink();
+        cursor = head;
+        manyNodes--;
+        if(manyNodes == 0) {
+            tail = null;
+        }
     }
 
     /**
@@ -52,33 +191,28 @@ public class DoubleLinkedSeq implements Cloneable {
      * 
      * @param element</CODE>
      *        the new element that is being added <dt><b>Postcondition:</b>
-     *        <dd>A new copy of the element has been added to this sequence. If there was
-     *        a current element, then the new element is placed after the current element.
-     *        If there was no current element, then the new element is placed at the end
-     *        of the sequence. In all cases, the new element becomes the new current
-     *        element of this sequence.
-     * @exception OutOfMemoryError
-     *            Indicates insufficient memory for a new node.
+     *        <dd>A new copy of the element has been added to this sequence. If
+     *        there was a current element, then the new element is placed after
+     *        the current element. If there was no current element, then the new
+     *        element is placed at the end of the sequence. In all cases, the
+     *        new element becomes the new current element of this sequence.
+     * @exception OutOfMemoryError Indicates insufficient memory for a new node.
      **/
     public void addAfter(double element) {
         if(isCurrent()) {
             cursor.addNodeAfter(element);
-            precursor = cursor;
             cursor = cursor.getLink();
         } else {
-            if(tail == null) {
-                tail = new Node<Double>(element, null);
-                cursor = tail;
-                precursor = tail;
-                head = tail;
+            if(manyNodes == 0) {
+                head = new Node<Double>(element, null);
+                tail = head;
             } else {
                 tail.addNodeAfter(element);
-                precursor = tail;
                 tail = tail.getLink();
-                cursor = tail;
             }
-            manyNodes++;
+            cursor = tail;
         }
+        manyNodes++;
     }
 
     /**
@@ -86,32 +220,29 @@ public class DoubleLinkedSeq implements Cloneable {
      * 
      * @param element</CODE>
      *        the new element that is being added <dt><b>Postcondition:</b>
-     *        <dd>A new copy of the element has been added to this sequence. If there was
-     *        a current element, then the new element is placed before the current
-     *        element. If there was no current element, then the new element is placed at
-     *        the start of the sequence. In all cases, the new element becomes the new
-     *        current element of this sequence.
+     *        <dd>A new copy of the element has been added to this sequence. If
+     *        there was a current element, then the new element is placed before
+     *        the current element. If there was no current element, then the new
+     *        element is placed at the start of the sequence. In all cases, the
+     *        new element becomes the new current element of this sequence.
      * @exception OutOfMemoryError
      *            Indicates insufficient memory for a new node.
      **/
     public void addBefore(double element) {
-        if(isCurrent()) {
-            if(cursor == head) {
-                precursor = new Node<Double>(element, cursor);
-                head = precursor;
-            } else {
-                precursor.addNodeAfter(element);
-                cursor = precursor.getLink();
-            }
+        if(manyNodes == 0) {
+            head = new Node<Double>(element, null);
+            tail = head;
+            cursor = head;
+        } else if(!isCurrent() || cursor == head) {
+            head = new Node<Double>(element, head);
+            cursor = head;
         } else {
-            if(head == null) {
-                head = new Node<Double>(element, null);
-                cursor = head;
-                precursor = head;
-                tail = head;
-            } else {
-                precursor.addNodeAfter(element);
+            Node<Double> pre = head;
+            while(pre.getLink() != cursor) {
+                pre = pre.getLink();
             }
+            pre.addNodeAfter(element);
+            cursor = pre.getLink();
         }
         manyNodes++;
     }
@@ -120,28 +251,26 @@ public class DoubleLinkedSeq implements Cloneable {
      * Place the contents of another sequence at the end of this sequence.
      * 
      * @param addend</CODE>
-     *        a sequence whose contents will be placed at the end of this sequence <dt>
-     *        <b>Precondition:</b>
+     *        a sequence whose contents will be placed at the end of this
+     *        sequence <dt><b>Precondition:</b>
      *        <dd>The parameter, addend</CODE>, is not null.
      *        <dt><b>Postcondition:</b>
-     *        <dd>The elements from addend</CODE> have been placed at the end of this
-     *        sequence. The current element of this sequence remains where it was, and the
-     *        addend</CODE> is also unchanged.
+     *        <dd>The elements from addend</CODE> have been placed at the end of
+     *        this sequence. The current element of this sequence remains where
+     *        it was, and the addend</CODE> is also unchanged.
      * @exception NullPointerException
      *            Indicates that addend</CODE> is null.
      * @exception OutOfMemoryError
-     *            Indicates insufficient memory to increase the size of this sequence.
+     *            Indicates insufficient memory to increase the size of this
+     *            sequence.
      **/
     public void addAll(DoubleLinkedSeq addend) {
-        Node<Double>[] copy;
         if(addend == null) {
-            throw new IllegalArgumentException("addAll:  addend is null");
+            throw new IllegalArgumentException("addAll: addend is null");
         }
         if(addend.size() > 0) {
-            copy = Node.listCopyWithTail(addend.head);
-            tail.getLink().setLink(copy[0]);
-            copy[1].setLink(null);
-            tail.setLink(copy[0]);
+            tail.setLink(addend.head);
+            tail = addend.tail;
             manyNodes += addend.size();
         }
     }
@@ -153,19 +282,18 @@ public class DoubleLinkedSeq implements Cloneable {
      * @param - none <dt><b>Precondition:</b>
      *        <dd>isCurrent()</CODE> returns true.
      *        <dt><b>Postcondition:</b>
-     *        <dd>If the current element was already the end element of this sequence
-     *        (with nothing after it), then there is no longer any current element.
-     *        Otherwise, the new element is the element immediately after the original
-     *        current element.
+     *        <dd>If the current element was already the end element of this
+     *        sequence (with nothing after it), then there is no longer any
+     *        current element. Otherwise, the new element is the element
+     *        immediately after the original current element.
      * @exception IllegalStateException
-     *            Indicates that there is no current element, so advance</CODE> may not be
-     *            called.
+     *            Indicates that there is no current element, so advance</CODE>
+     *            may not be called.
      **/
     public void advance() {
         if(!isCurrent()) {
             return;
         }
-        precursor = cursor;
         cursor = cursor.getLink();
     }
 
@@ -174,9 +302,12 @@ public class DoubleLinkedSeq implements Cloneable {
      * 
      * @param - none
      * @return
-     *         The return value is a copy of this sequence. Subsequent changes to the
-     *         copy will not affect the original, nor vice versa. Note that the return
-     *         value must be type cast to a DoubleLinkedSeq</CODE> before it can be used.
+     *         The return value is a copy of this sequence. Subsequent changes
+     *         to the
+     *         copy will not affect the original, nor vice versa. Note that the
+     *         return
+     *         value must be type cast to a DoubleLinkedSeq</CODE> before it can
+     *         be used.
      * @exception OutOfMemoryError
      *            Indicates insufficient memory for creating the clone.
      **/
@@ -202,15 +333,16 @@ public class DoubleLinkedSeq implements Cloneable {
      *        the second of two sequences <dt><b>Precondition:</b>
      *        <dd>Neither s1 nor s2 is null.
      * @return
-     *         a new sequence that has the elements of s1</CODE> followed by the elements
-     *         of s2</CODE> (with no current element)
-     * @exception NullPointerException. Indicates that one of the arguments is null.
+     *         a new sequence that has the elements of s1</CODE> followed by the
+     *         elements of s2</CODE> (with no current element)
+     * @exception NullPointerException. Indicates that one of the arguments is
+     *            null.
      * @exception OutOfMemoryError
      *            Indicates insufficient memory for the new sequence.
      **/
     public static DoubleLinkedSeq catenation(DoubleLinkedSeq s1, DoubleLinkedSeq s2) {
         if((s1 == null) || (s1 == null)) {
-            throw new IllegalArgumentException("concatenation:  one argument is null");
+            throw new IllegalArgumentException("concatenation: one argument is null");
         }
         DoubleLinkedSeq answer = new DoubleLinkedSeq();
         answer.addAll(s1);
@@ -226,8 +358,8 @@ public class DoubleLinkedSeq implements Cloneable {
      * @return
      *         the current capacity of this sequence
      * @exception IllegalStateException
-     *            Indicates that there is no current element, so getCurrent</CODE> may not
-     *            be called.
+     *            Indicates that there is no current element, so
+     *            getCurrent</CODE> may not be called.
      **/
     public double getCurrent() {
         if(!isCurrent()) {
@@ -243,14 +375,12 @@ public class DoubleLinkedSeq implements Cloneable {
      * 
      * @param - none
      * @return
-     *         true (there is a current element) or false (there is no current element at
+     *         true (there is a current element) or false (there is no current
+     *         element at
      *         the moment)
      **/
     public boolean isCurrent() {
-        if(cursor == null) {
-            return false;
-        }
-        return true;
+        return cursor != null;
     }
 
     /**
@@ -259,50 +389,40 @@ public class DoubleLinkedSeq implements Cloneable {
      * @param - none <dt><b>Precondition:</b>
      *        <dd>isCurrent()</CODE> returns true.
      *        <dt><b>Postcondition:</b>
-     *        <dd>The current element has been removed from this sequence, and the
-     *        following element (if there is one) is now the new current element. If there
-     *        was no following element, then there is now no current element.
+     *        <dd>The current element has been removed from this sequence, and
+     *        the following element (if there is one) is now the new current
+     *        element. If there was no following element, then there is now no
+     *        current element.
      * @exception IllegalStateException
-     *            Indicates that there is no current element, so removeCurrent</CODE> may
-     *            not be called.
+     *            Indicates that there is no current element, so
+     *            removeCurrent</CODE> may not be called.
      **/
     public void removeCurrent() {
         if(!isCurrent()) {
             throw new IllegalStateException("removeCurrent: isCurrent() is null");
-        }
-        if(tail == head) {
+        } else if(manyNodes == 0) {
+            throw new IllegalStateException("removeCurrent: list is empty");
+        } else if(manyNodes == 1) {
             head = null;
             tail = null;
-            cursor = head;
-            precursor = head;
-            manyNodes--;
-            return;
-        }
-
-        if(cursor == tail) {
-            tail = precursor;
-            tail.setLink(null);
-            cursor = tail;
-            precursor = head;
-            while(precursor.getLink() != cursor) {
-                if(precursor.getLink() == null) {
-                    break;
-                }
-                precursor = precursor.getLink();
-            }
-            manyNodes--;
-            return;
-        }
-
-        if(cursor == head) {
+            cursor = null;
+        } else if(cursor == head) {
             head = head.getLink();
             cursor = head;
-            precursor = head;
-            manyNodes--;
-            return;
+        } else {
+            Node<Double> pre = head;
+            while(pre.getLink() != cursor) {
+                pre = pre.getLink();
+            }
+            if(cursor == tail) {
+                pre.setLink(null);
+                tail = pre;
+                cursor = null;
+            } else {
+                pre.setLink(cursor.getLink());
+                cursor = pre;
+            }
         }
-        cursor = cursor.getLink();
-        precursor.setLink(cursor);
         manyNodes--;
     }
 
@@ -321,14 +441,46 @@ public class DoubleLinkedSeq implements Cloneable {
      * Set the current element at the front of this sequence.
      * 
      * @param - none <dt><b>Postcondition:</b>
-     *        <dd>The front element of this sequence is now the current element (but if
-     *        this sequence has no elements at all, then there is no current element).
+     *        <dd>The front element of this sequence is now the current element
+     *        (but if this sequence has no elements at all, then there is no
+     *        current element).
      **/
     public void start() {
         if(head == null) {
             cursor = null;
         }
         cursor = head;
-        precursor = head;
+    }
+
+    /**
+     * Set the current element at the end of this sequence.
+     * 
+     * @param - none <dt><b>Postcondition:</b>
+     *        <dd>The end element of this sequence is now the current element
+     *        (but if this sequence has no elements at all, then there is no
+     *        current element).
+     **/
+    public void end() {
+        if(tail == null) {
+            cursor = null;
+        }
+        cursor = tail;
+    }
+
+    @Override
+    public String toString() {
+        String ret = "Size: " + manyNodes + "\n";
+        ret += "Current Node: " + (cursor != null ? cursor.getData() : "null") + "\n";
+        ret += "Nodes: [";
+        Node<Double> current = head;
+        while(current != null) {
+            ret += current.getData();
+            if(current.getLink() != null) {
+                ret += ", ";
+            }
+            current = current.getLink();
+        }
+        ret += "]";
+        return ret;
     }
 }

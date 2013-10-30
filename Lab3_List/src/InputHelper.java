@@ -31,16 +31,17 @@ public class InputHelper {
     /**
      * Gets the first valid double the user enters.
      * 
-     * @param prompt The text to prompt to the user when entering the number.
+     * @param prompt - The text to prompt to the user when entering the number.
      * @return The number that the user entered.
      */
     public static double nextDouble(String prompt) {
         double ret = -1;
-        while(true) {
+        boolean completed = false;
+        while(!completed) {
             try {
                 System.out.print(prompt);
                 ret = Double.parseDouble(scanner.nextLine());
-                break;
+                completed = true;
             } catch(NumberFormatException e) {
                 System.out.println("<Invalid input. Malformed double.>");
             }
@@ -51,12 +52,13 @@ public class InputHelper {
     /**
      * Gets a list of doubles that the user enters seperated by either a " ,-".
      * 
-     * @param prompt The text to prompt to the user when entering the numbers.
+     * @param prompt - The text to prompt to the user when entering the numbers.
      * @return The list of numbers that the user entered.
      */
     public static List<Double> nextDoubles(String prompt) {
         List<Double> ret = new ArrayList<Double>();
-        while(true) {
+        boolean completed = false;
+        while(!completed) {
             ret.clear();
             System.out.print(prompt);
             StringTokenizer tokenizer = new StringTokenizer(scanner.nextLine(), splitString);
@@ -65,7 +67,7 @@ public class InputHelper {
                     while(tokenizer.hasMoreTokens()) {
                         ret.add(Double.parseDouble(tokenizer.nextToken()));
                     }
-                    break;
+                    completed = true;
                 } catch(NumberFormatException e) {
                     System.out.println("<Invalid input. Malformed double.>");
                 }
@@ -79,16 +81,17 @@ public class InputHelper {
     /**
      * Gets the first valid integer the user enters.
      * 
-     * @param prompt The text to prompt to the user when entering the number.
+     * @param prompt - The text to prompt to the user when entering the number.
      * @return The number that the user entered.
      */
     public static int nextInteger(String prompt) {
         int ret = -1;
-        while(true) {
+        boolean completed = false;
+        while(!completed) {
             try {
                 System.out.print(prompt);
                 ret = Integer.parseInt(scanner.nextLine());
-                break;
+                completed = true;
             } catch(NumberFormatException e) {
                 System.out.println("<Invalid input. Malformed integer.>");
             }
@@ -99,12 +102,13 @@ public class InputHelper {
     /**
      * Gets a list of integers that the user enters seperated by either a " ,-".
      * 
-     * @param prompt The text to prompt to the user when entering the numbers.
+     * @param prompt - The text to prompt to the user when entering the numbers.
      * @return The list of numbers that the user entered.
      */
     public static List<Integer> nextIntegers(String prompt) {
         List<Integer> ret = new ArrayList<Integer>();
-        while(true) {
+        boolean completed = false;
+        while(!completed) {
             ret.clear();
             System.out.print(prompt);
             StringTokenizer tokenizer = new StringTokenizer(scanner.nextLine(), splitString);
@@ -113,7 +117,7 @@ public class InputHelper {
                     while(tokenizer.hasMoreTokens()) {
                         ret.add(Integer.parseInt(tokenizer.nextToken()));
                     }
-                    break;
+                    completed = true;
                 } catch(NumberFormatException e) {
                     System.out.println("<Invalid input. Malformed integer.>");
                 }
@@ -125,12 +129,13 @@ public class InputHelper {
     }
 
     /**
-     * Reads a line and parses it into an double. If there are multiple values in the
-     * line, it will try to read the first value.
+     * Reads a line and parses it into an double. If there are multiple values
+     * in the line, it will try to read the first value.
      * 
-     * @param line The line to parse.
+     * @param line - The line to parse.
      * @return A double represented by the line.
-     * @throws IllegalArgumentException If the length of the line is not long enough.
+     * @throws IllegalArgumentException If the length of the line is not long
+     *         enough.
      * @throws NumberFormatException If there is an error processing the line.
      */
     public static double parseDouble(String line) {
@@ -145,12 +150,13 @@ public class InputHelper {
     }
 
     /**
-     * Reads a line and parses it into a list of doubles. If there is an error while
-     * processing a double, the int is skipped and not added to the list.
+     * Reads a line and parses it into a list of doubles. If there is an error
+     * while processing a double, the int is skipped and not added to the list.
      * 
-     * @param line The line to parse.
+     * @param line - The line to parse.
      * @return A list of doubles represented in the line.
-     * @throws IllegalArgumentException If the length of the line is not long enough.
+     * @throws IllegalArgumentException If the length of the line is not long
+     *         enough.
      */
     public static List<Double> parseDoubles(String line) {
         if(line.length() == 0) {
@@ -168,12 +174,13 @@ public class InputHelper {
     }
 
     /**
-     * Reads a line and parses it into an int. If there are multiple values in the line,
-     * it will try to read the first value.
+     * Reads a line and parses it into an int. If there are multiple values in
+     * the line, it will try to read the first value.
      * 
-     * @param line The line to parse.
+     * @param line - The line to parse.
      * @return An int represented by the line.
-     * @throws IllegalArgumentException If the length of the line is not long enough.
+     * @throws IllegalArgumentException If the length of the line is not long
+     *         enough.
      * @throws NumberFormatException If there is an error processing the line.
      */
     public static int parseInteger(String line) {
@@ -188,12 +195,13 @@ public class InputHelper {
     }
 
     /**
-     * Reads a line and parses it into a list of integers. If there is an error while
-     * processing a int, the int is skipped and not added to the list.
+     * Reads a line and parses it into a list of integers. If there is an error
+     * while processing a int, the int is skipped and not added to the list.
      * 
-     * @param line The line to parse.
+     * @param line - The line to parse.
      * @return A list of ints represented in the line.
-     * @throws IllegalArgumentException If the length of the line is not long enough.
+     * @throws IllegalArgumentException If the length of the line is not long
+     *         enough.
      */
     public static List<Integer> parseIntegers(String line) {
         if(line.length() == 0) {
@@ -211,10 +219,10 @@ public class InputHelper {
     }
 
     /**
-     * Reads each line in the file at 'path' and return the lines. This function will
-     * return an empty list if the file does not exist.
+     * Reads each line in the file at 'path' and return the lines. This function
+     * will return an empty list if the file does not exist.
      * 
-     * @param path The location of the file.
+     * @param path - The location of the file.
      * @return A list of strings.
      */
     public static List<String> readFile(String path) {

@@ -15,8 +15,8 @@
  *       free memory in the heap. But beyond Integer.MAX_VALUE (2,147,483,647),
  *       the answer from listLength is incorrect because of arithmetic
  *       overflow.
- * @see <A HREF="../../../../edu/colorado/nodes/Node.java"> Java Source Code for this
- *      class (www.cs.colorado.edu/~main/edu/colorado/nodes/Node.java) </A>
+ * @see <A HREF="../../../../edu/colorado/nodes/Node.java"> Java Source Code for
+ *      this class (www.cs.colorado.edu/~main/edu/colorado/nodes/Node.java) </A>
  * @author Michael Main
  *         <A HREF="mailto:main@colorado.edu"> (main@colorado.edu) </A>
  * @version
@@ -48,10 +48,12 @@ public class Node<E> {
      * @param initialData
      *        the initial data of this new node
      * @param initialLink
-     *        a reference to the node after this new node--this reference may be null
+     *        a reference to the node after this new node--this reference may be
+     *        null
      *        to indicate that there is no node after this new node.
      * @postcondition
-     *                This node contains the specified data and link to the next node.
+     *                This node contains the specified data and link to the next
+     *                node.
      **/
     public Node(E initialData, Node<E> initialLink) {
         data = initialData;
@@ -66,7 +68,8 @@ public class Node<E> {
      * @postcondition
      *                A new node has been created and placed after this node.
      *                The data for the new node is element. Any other nodes
-     *                that used to be after this node are now after the new node.
+     *                that used to be after this node are now after the new
+     *                node.
      * @exception OutOfMemoryError
      *            Indicates that there is insufficient memory for a new
      *            Node.
@@ -91,7 +94,8 @@ public class Node<E> {
      * 
      * @param - none
      * @return
-     *         a reference to the node after this node (or the null reference if there
+     *         a reference to the node after this node (or the null reference if
+     *         there
      *         is nothing after this node)
      **/
     public Node<E> getLink() {
@@ -144,7 +148,8 @@ public class Node<E> {
      * @return
      *         The method has made a copy of the linked list starting at
      *         source. The return value is an
-     *         array where the [0] element is a head reference for the copy and the [1]
+     *         array where the [0] element is a head reference for the copy and
+     *         the [1]
      *         element is a tail reference for the copy.
      * @exception OutOfMemoryError
      *            Indicates that there is insufficient memory for the new list.
@@ -200,12 +205,14 @@ public class Node<E> {
     }
 
     /**
-     * Copy part of a list, providing a head and tail reference for the new copy.
+     * Copy part of a list, providing a head and tail reference for the new
+     * copy.
      * 
      * @param start/end
      *        references to two nodes of a linked list
      * @param copyHead/copyTail
-     *        the method sets these to refer to the head and tail node of the new
+     *        the method sets these to refer to the head and tail node of the
+     *        new
      *        list that is created
      * @precondition
      *               start and end are non-null references to nodes
@@ -213,8 +220,10 @@ public class Node<E> {
      *               with the start node at or before the end node.
      * @return
      *         The method has made a copy of the part of a linked list, from the
-     *         specified start node to the specified end node. The return value is an
-     *         array where the [0] component is a head reference for the copy and the
+     *         specified start node to the specified end node. The return value
+     *         is an
+     *         array where the [0] component is a head reference for the copy
+     *         and the
      *         [1] component is a tail reference for the copy.
      * @exception IllegalArgumentException
      *            Indicates that start and end do not satisfy
@@ -261,16 +270,20 @@ public class Node<E> {
      * Find a node at a specified position in a linked list.
      * 
      * @param head
-     *        the head reference for a linked list (which may be an empty list in
+     *        the head reference for a linked list (which may be an empty list
+     *        in
      *        which case the head is null)
      * @param position
      *        a node number
      * @precondition
      *               position > 0.
      * @return
-     *         The return value is a reference to the node at the specified position in
-     *         the list. (The head node is position 1, the next node is position 2, and
-     *         so on.) If there is no such position (because the list is too short),
+     *         The return value is a reference to the node at the specified
+     *         position in
+     *         the list. (The head node is position 1, the next node is position
+     *         2, and
+     *         so on.) If there is no such position (because the list is too
+     *         short),
      *         then the null reference is returned.
      * @exception IllegalArgumentException
      *            Indicates that position is zero.
@@ -295,23 +308,27 @@ public class Node<E> {
      * Search for a particular piece of data in a linked list.
      * 
      * @param head
-     *        the head reference for a linked list (which may be an empty list in
+     *        the head reference for a linked list (which may be an empty list
+     *        in
      *        which case the head is null)
      * @param target
      *        a target to search for
      * @return
-     *         The return value is a reference to the first node that contains the
+     *         The return value is a reference to the first node that contains
+     *         the
      *         specified target. If the target is non-null, then the
      *         target.equals method is used to find such a node.
      *         The target may also be null, in which case the return value is a
-     *         reference to the first node that contains a null reference for its
+     *         reference to the first node that contains a null reference for
+     *         its
      *         data. If there is no node that contains the target, then the null
      *         reference is returned.
      **/
     public static <E> Node<E> listSearch(Node<E> head, E target) {
         Node<E> cursor;
 
-        if(target == null) {  // Search for a node in which the data is the null reference.
+        if(target == null) {  // Search for a node in which the data is the null
+                             // reference.
             for(cursor = head; cursor != null; cursor = cursor.link) {
                 if(cursor.data == null) {
                     return cursor;
@@ -335,11 +352,13 @@ public class Node<E> {
      * @precondition
      *               This node must not be the tail node of the list.
      * @postcondition
-     *                The node after this node has been removed from the linked list.
+     *                The node after this node has been removed from the linked
+     *                list.
      *                If there were further nodes after that one, they are still
      *                present on the list.
      * @exception NullPointerException
-     *            Indicates that this was the tail node of the list, so there is nothing
+     *            Indicates that this was the tail node of the list, so there is
+     *            nothing
      *            after it to remove.
      **/
     public void removeNodeAfter() {
@@ -363,15 +382,23 @@ public class Node<E> {
      * Modification method to set the link to the next node after this node.
      * 
      * @param newLink
-     *        a reference to the node that should appear after this node in the linked
+     *        a reference to the node that should appear after this node in the
+     *        linked
      *        list (or the null reference if there is no node after this node)
      * @postcondition
-     *                The link to the node after this node has been set to newLink.
-     *                Any other node (that used to be in this link) is no longer connected
+     *                The link to the node after this node has been set to
+     *                newLink.
+     *                Any other node (that used to be in this link) is no longer
+     *                connected
      *                to
      *                this node.
      **/
     public void setLink(Node<E> newLink) {
         link = newLink;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + data.toString() + ")";
     }
 }
