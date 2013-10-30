@@ -48,7 +48,7 @@ public class Menu {
             int input = arguments.get(0).intValue();
             arguments.remove(0);
             switch(input) {
-            case 1:
+            case 1: // Create a sequence
                 printInfo("1. Create a sequence");
                 if(arguments.size() <= 0) {
                     System.out.println("Not enough information.");
@@ -57,7 +57,7 @@ public class Menu {
                     sequenceInstance.printSequence(1);
                 }
                 break;
-            case 2:
+            case 2: // Delete a number
                 printInfo("2. Delete a number");
                 if(arguments.size() <= 0) {
                     System.out.println("Not enough information.");
@@ -66,12 +66,12 @@ public class Menu {
                     sequenceInstance.printSequence(1);
                 }
                 break;
-            case 3:
+            case 3: // Delete the first number from the sequence
                 printInfo("3. Delete the first number from the sequence");
                 sequenceInstance.deleteFirstNumber();
                 sequenceInstance.printSequence(1);
                 break;
-            case 4:
+            case 4: // Add a number before another number
                 printInfo("4. Add a number before another number");
                 if(arguments.size() <= 1) {
                     System.out.println("Not enough information.");
@@ -80,7 +80,7 @@ public class Menu {
                     sequenceInstance.printSequence(1);
                 }
                 break;
-            case 5:
+            case 5: // Add a number after a number
                 printInfo("5. Add a number after a number");
                 if(arguments.size() <= 1) {
                     System.out.println("Not enough information.");
@@ -89,7 +89,7 @@ public class Menu {
                     sequenceInstance.printSequence(1);
                 }
                 break;
-            case 6:
+            case 6: // Add a number to the end of the sequence
                 printInfo("6. Add a number to the end of the sequence");
                 if(arguments.size() <= 0) {
                     System.out.println("Not enough information.");
@@ -98,15 +98,15 @@ public class Menu {
                     sequenceInstance.printSequence(1);
                 }
                 break;
-            case 7:
+            case 7: // Display a number at a certain index
                 printInfo("7. Display a number at a certain index");
                 sequenceInstance.displayNumber(arguments.get(0).intValue());
                 break;
-            case 8:
+            case 8: // Display the last element in the sequence
                 printInfo("8. Display the last element in the sequence");
                 sequenceInstance.displaLastNumber();
                 break;
-            case 9:
+            case 9: // Replace a number with another number
                 printInfo("9. Replace a number with another number");
                 if(arguments.size() <= 1) {
                     System.out.println("Not enough information.");
@@ -115,16 +115,16 @@ public class Menu {
                     sequenceInstance.printSequence(1);
                 }
                 break;
-            case 10:
+            case 10: // Append another sequence to the first sequence
                 printInfo("10. Append another sequence to the first sequence");
                 sequenceInstance.appendedSequence();
                 sequenceInstance.printSequence(1);
                 break;
-            case 11:
+            case 11: // Create a clone sequence
                 printInfo("11. Create a clone sequence");
                 sequenceInstance.createCloned();
                 break;
-            case 12:
+            case 12: // Print the sequence
                 printInfo("12. Print the sequence");
                 if(arguments.size() <= 0) {
                     System.out.println("Not enough information.");
@@ -132,7 +132,7 @@ public class Menu {
                     sequenceInstance.printSequence(arguments.get(0).intValue());
                 }
                 break;
-            case 13:
+            case 13: // Quit
                 printInfo("13. Quit");
                 System.exit(0);
                 break;

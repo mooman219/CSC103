@@ -155,8 +155,7 @@ public class InputHelper {
      * 
      * @param line - The line to parse.
      * @return A list of doubles represented in the line.
-     * @throws IllegalArgumentException If the length of the line is not long
-     *         enough.
+     * @throws IllegalArgumentException If the length of the line is not long enough.
      */
     public static List<Double> parseDoubles(String line) {
         if(line.length() == 0) {

@@ -1,0 +1,110 @@
+Input line: "1 -"
+1. Create a sequence
+-------------------------
+Not enough information.
+
+
+Input line: "1 - 100,400,200,700,500"
+1. Create a sequence
+-------------------------
+Size: 5
+Current Node: 500.0
+Nodes: [100.0, 400.0, 200.0, 700.0, 500.0]
+
+
+Input line: "2 – 400"
+2. Delete a number
+-------------------------
+Size: 4
+Current Node: 100.0
+Nodes: [100.0, 200.0, 700.0, 500.0]
+
+
+Input line: "4 - 3,700"
+4. Add a number before another number
+-------------------------
+Size: 5
+Current Node: 700.0
+Nodes: [100.0, 200.0, 700.0, 700.0, 500.0]
+
+
+Input line: "5 - 5,200"
+5. Add a number after a number
+-------------------------
+The given index 5 is out of bounds.
+Size: 5
+Current Node: 700.0
+Nodes: [100.0, 200.0, 700.0, 700.0, 500.0]
+
+
+Input line: "3"
+3. Delete the first number from the sequence
+-------------------------
+Size: 4
+Current Node: 200.0
+Nodes: [200.0, 700.0, 700.0, 500.0]
+
+
+Input line: "6 - 25"
+6. Add a number to the end of the sequence
+-------------------------
+Size: 5
+Current Node: 25.0
+Nodes: [200.0, 700.0, 700.0, 500.0, 25.0]
+
+
+Input line: "7 - 3"
+7. Display a number at a certain index
+-------------------------
+The number at index 3 is: 500.0
+
+
+Input line: "8"
+8. Display the last element in the sequence
+-------------------------
+The last number in the sequence is 25.0
+
+
+Input line: "1 - 10,20,30"
+1. Create a sequence
+-------------------------
+Size: 3
+Current Node: 30.0
+Nodes: [10.0, 20.0, 30.0]
+
+
+Input line: "10"
+10. Append another sequence to the first sequence
+-------------------------
+Size: 8
+Current Node: 25.0
+Nodes: [200.0, 700.0, 700.0, 500.0, 25.0, 10.0, 20.0, 30.0]
+
+
+Input line: "11"
+11. Create a clone sequence
+-------------------------
+
+
+Input line: "9 - 700, 7"
+9. Replace a number with another number
+-------------------------
+Size: 8
+Current Node: 7.0
+Nodes: [200.0, 7.0, 700.0, 500.0, 25.0, 10.0, 20.0, 30.0]
+
+
+Input line: "12 - 1"
+12. Print the sequence
+-------------------------
+Size: 8
+Current Node: 7.0
+Nodes: [200.0, 7.0, 700.0, 500.0, 25.0, 10.0, 20.0, 30.0]
+
+
+Input line: "12 - 2"
+12. Print the sequence
+-------------------------
+Size: 3
+Current Node: 30.0
+Nodes: [10.0, 20.0, 30.0]
