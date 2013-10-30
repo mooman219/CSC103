@@ -237,12 +237,8 @@ public class DoubleLinkedSeq implements Cloneable {
             head = new Node<Double>(element, head);
             cursor = head;
         } else {
-            Node<Double> pre = head;
-            while(pre.getLink() != cursor) {
-                pre = pre.getLink();
-            }
-            pre.addNodeAfter(element);
-            cursor = pre.getLink();
+            cursor.setLink(new Node<Double>(cursor.getData(), cursor.getLink()));
+            cursor.setData(element);
         }
         manyNodes++;
     }
