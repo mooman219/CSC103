@@ -405,6 +405,9 @@ public class DoubleLinkedSeq implements Cloneable {
         } else if(cursor == head) {
             head = head.getLink();
             cursor = head;
+        } else if(cursor == tail) {
+            tail = null;
+            cursor = null;
         } else {
             Node<Double> pre = head;
             while(pre.getLink() != cursor) {
