@@ -68,14 +68,13 @@ public class Lab4 {
                     runway = landing.poll();
                     if(currentTime - runway.getArrivalTime() > maximumLandingTime) {
                         totalCrashed++;
-                        System.out.println(
-                                runway + " has [CRASHED]."+ 
-                                " ArrivalTime: " + runway.getArrivalTime());
+                        System.out.println(runway + " has [CRASHED]." + " ArrivalTime: " + runway.getArrivalTime());
                         runway = null;
                     }
                 }
                 /**
-                 * If there wasn't a plane that needed to land, check the takeoff queue for planes needing to take off.
+                 * If there wasn't a plane that needed to land, check the
+                 * takeoff queue for planes needing to take off.
                  */
                 if(runway == null) {
                     runway = takeoff.poll();
@@ -86,10 +85,7 @@ public class Lab4 {
                 if(runway == null) {
                     System.out.println("Runway: Empty");
                 } else {
-                    System.out.println(
-                            "Runway: " + runway + 
-                            " " + runway.getOperation() + 
-                            " Duration: " + runway.getActiveTime());
+                    System.out.println("Runway: " + runway + " " + runway.getOperation() + " Duration: " + runway.getActiveTime());
                 }
             } else {
                 runway.incrementActivetime();
