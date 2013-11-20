@@ -38,8 +38,7 @@ public class Runway {
      * @param averageLandingArrival Probility for a plane to arrive for landing.
      * @param maximumLandingTime Maximum time a plane to land before it crashes.
      */
-    public Runway(int takeoffTime, int landingTime, int averageTakeoffArrival,
-            int averageLandingArrival, int maximumLandingTime) {
+    public Runway(int takeoffTime, int landingTime, int averageTakeoffArrival, int averageLandingArrival, int maximumLandingTime) {
         this.takeoffTime = takeoffTime;
         this.landingTime = landingTime;
         this.maximumLandingTime = maximumLandingTime;
@@ -85,6 +84,11 @@ public class Runway {
      * 
      * @param currentTime - The current time at which this is happening. This is
      *        used to date the planes arrival to the runway.
+     * @postcondition If the runway is empty, a plane is added to it from the
+     *                landing queue. If the landing queue is empty, then a plane
+     *                is added from the take off queue. If the runway isn't
+     *                empty, whatever was on the runway is processed to
+     *                takeoff/land.
      */
     public void process(int currentTime) {
         if(runway == null) {
@@ -100,8 +104,7 @@ public class Runway {
                 if(currentTime - runway.getArrivalTime() > maximumLandingTime) {
                     totalCrashed++;
                     crashes.push(runway);
-                    System.out.println(runway + " has [CRASHED]."
-                    + " ArrivalTime: " + runway.getArrivalTime());
+                    System.out.println(runway + " has [CRASHED]." + " ArrivalTime: " + runway.getArrivalTime());
                     runway = null;
                 } else {
                     averageLanding.addNumber(currentTime - runway.getArrivalTime());
@@ -121,13 +124,11 @@ public class Runway {
             if(runway == null) {
                 System.out.println("Runway: Empty");
             } else {
-                System.out.println("Runway: " + runway + " " + runway.getOperation() +
-                        " Duration: " + runway.getActiveTime());
+                System.out.println("Runway: " + runway + " " + runway.getOperation() + " Duration: " + runway.getActiveTime());
             }
         } else {
             runway.incrementActivetime();
-            System.out.print("Runway: " + runway + " " + runway.getOperation() +
-                    " Duration: " + runway.getActiveTime());
+            System.out.print("Runway: " + runway + " " + runway.getOperation() + " Duration: " + runway.getActiveTime());
             switch(runway.getOperation()) {
             case LANDING:
                 if(runway.getActiveTime() >= landingTime) {
@@ -163,8 +164,7 @@ public class Runway {
         System.out.println("Plane Crashes:");
         while(crashes.peek() != null) {
             Plane crashedPlane = crashes.pop();
-            System.out.println(crashedPlane + " crashed "
-                    + (crashedPlane.getArrivalTime() + maximumLandingTime + 1) + " minutes in.");
+            System.out.println(crashedPlane + " crashed " + (crashedPlane.getArrivalTime() + maximumLandingTime + 1) + " minutes in.");
         }
         System.out.println();
         System.out.println("# of planes that crashed : " + totalCrashed);
