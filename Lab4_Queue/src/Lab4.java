@@ -1,3 +1,5 @@
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -5,6 +7,7 @@ public class Lab4 {
     public static void main(String[] args) {
         Queue<Plane> takeoff = new LinkedBlockingQueue<Plane>();
         Queue<Plane> landing = new LinkedBlockingQueue<Plane>();
+        Deque<Plane> crashes = new ArrayDeque<Plane>();
         Plane runway = null;
         /**
          * Simulation properties
@@ -15,19 +18,20 @@ public class Lab4 {
         int averageTakeoffArrival = InputHelper.nextInteger("The average amount of time between arrival of planes to the take off queue is: ");
         int averageLandingArrival = InputHelper.nextInteger("The average amount of time between arrival of planes to the landing queue is: ");
         int maximumLandingTime = InputHelper.nextInteger("The maximum time a plane can stay in the landing queue before crashing is: ");
+        //Runway runway = new Runway(takeoffTime, landingTime, averageTakeoffArrival, averageLandingArrival, maximumLandingTime);
         /**
          * Simulation statistics
          */
         int totalCrashed = 0;
         int totalTakeoff = 0;
         int totalLanded = 0;
-        int averageTakeoff = 0;
-        int averageLanding = 0;
+        Averager averageTakeoff = new Averager();
+        Averager averageLanding = new Averager();
         /**
          * Temporary simulation vairables
          */
-        double takeoffProbability = 1d / averageTakeoffArrival;
-        double landingProbability = 1d / averageLandingArrival;
+        BooleanSource takeoffProbability = new BooleanSource(1d / averageTakeoffArrival);
+        BooleanSource landingProbability = new BooleanSource(1d / averageLandingArrival);
 
         for(int currentTime = 0; currentTime < simulationTime; currentTime++) {
             System.out.println("\nTime: " + currentTime);
@@ -35,7 +39,7 @@ public class Lab4 {
              * This block calculates if a plane is taking off or not. If a plane
              * is taking off, it is added to the takeoff queue.
              */
-            if(Math.random() < takeoffProbability) {
+            if(takeoffProbability.query()) {
                 Plane takeoffPlane = new Plane(Plane.Operation.TAKEING_OFF, currentTime);
                 takeoff.add(takeoffPlane);
                 System.out.println("Arrived for take off: " + takeoffPlane);
@@ -46,7 +50,7 @@ public class Lab4 {
              * This block calculates if a plane is landing or not. If a plane is
              * landing, it is added to the landing queue.
              */
-            if(Math.random() < landingProbability) {
+            if(landingProbability.query()) {
                 Plane landingPlane = new Plane(Plane.Operation.LANDING, currentTime);
                 landing.add(landingPlane);
                 System.out.println("Arrived for landing : " + landingPlane);
@@ -68,16 +72,20 @@ public class Lab4 {
                     runway = landing.poll();
                     if(currentTime - runway.getArrivalTime() > maximumLandingTime) {
                         totalCrashed++;
+                        crashes.push(runway);
                         System.out.println(runway + " has [CRASHED]." + " ArrivalTime: " + runway.getArrivalTime());
                         runway = null;
+                    } else {
+                        averageLanding.addNumber(currentTime - runway.getArrivalTime());
                     }
                 }
                 /**
                  * If there wasn't a plane that needed to land, check the
                  * takeoff queue for planes needing to take off.
                  */
-                if(runway == null) {
+                if(runway == null && takeoff.peek() != null) {
                     runway = takeoff.poll();
+                    averageTakeoff.addNumber(currentTime - runway.getArrivalTime());
                 }
                 /**
                  * Finally, display the status of the runway.
@@ -121,10 +129,16 @@ public class Lab4 {
          * Simulation statistics output
          */
         System.out.println();
+        System.out.println("Plane Crashes:");
+        while(crashes.peek() != null) {
+            Plane crashedPlane = crashes.pop();
+            System.out.println(crashedPlane + " crashed " + (crashedPlane.getArrivalTime() + maximumLandingTime + 1) + " minutes in.");
+        }
+        System.out.println();
         System.out.println("# of planes that crashed : " + totalCrashed);
         System.out.println("# of planes that came to the runway for take off : " + totalTakeoff);
         System.out.println("# of planes that came to the runway for landing  : " + totalLanded);
-        System.out.println("The average time a plane spent on the take off queue is : " + averageTakeoff);
-        System.out.println("The average time a plane spent on the landing queue is  : " + averageLanding);
+        System.out.println("The average time a plane spent on the take off queue is : " + averageTakeoff.average());
+        System.out.println("The average time a plane spent on the landing queue is  : " + averageLanding.average());
     }
 }
