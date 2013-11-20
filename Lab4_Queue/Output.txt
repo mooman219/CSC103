@@ -1,0 +1,172 @@
+The time of simulation is: 30
+The time needed for one plane to take off is: 4
+The time needed for one plane to land is: 5
+The average amount of time between arrival of planes to the take off queue is: 5
+The average amount of time between arrival of planes to the landing queue is: 4
+The maximum time a plane can stay in the landing queue before crashing is: 4
+
+Time: 0
+Arrived for take off: 
+Arrived for landing : Plane #0
+Runway: Plane #0 LANDING Duration: 1
+
+Time: 1
+Arrived for take off: 
+Arrived for landing : Plane #1
+Runway: Plane #0 LANDING Duration: 2
+
+Time: 2
+Arrived for take off: Plane #2
+Arrived for landing : Plane #3
+Runway: Plane #0 LANDING Duration: 3
+
+Time: 3
+Arrived for take off: 
+Arrived for landing : Plane #4
+Runway: Plane #0 LANDING Duration: 4
+
+Time: 4
+Arrived for take off: 
+Arrived for landing : 
+Runway: Plane #0 LANDING Duration: 5 (FINISHED)
+
+Time: 5
+Arrived for take off: 
+Arrived for landing : Plane #5
+Runway: Plane #1 LANDING Duration: 1
+
+Time: 6
+Arrived for take off: 
+Arrived for landing : 
+Runway: Plane #1 LANDING Duration: 2
+
+Time: 7
+Arrived for take off: 
+Arrived for landing : 
+Runway: Plane #1 LANDING Duration: 3
+
+Time: 8
+Arrived for take off: Plane #6
+Arrived for landing : 
+Runway: Plane #1 LANDING Duration: 4
+
+Time: 9
+Arrived for take off: 
+Arrived for landing : 
+Runway: Plane #1 LANDING Duration: 5 (FINISHED)
+
+Time: 10
+Arrived for take off: 
+Arrived for landing : 
+Plane #3 has [CRASHED]. ArrivalTime: 2
+Plane #4 has [CRASHED]. ArrivalTime: 3
+Plane #5 has [CRASHED]. ArrivalTime: 5
+Runway: Plane #2 TAKEING_OFF Duration: 1
+
+Time: 11
+Arrived for take off: 
+Arrived for landing : 
+Runway: Plane #2 TAKEING_OFF Duration: 2
+
+Time: 12
+Arrived for take off: 
+Arrived for landing : 
+Runway: Plane #2 TAKEING_OFF Duration: 3
+
+Time: 13
+Arrived for take off: 
+Arrived for landing : 
+Runway: Plane #2 TAKEING_OFF Duration: 4 (FINISHED)
+
+Time: 14
+Arrived for take off: Plane #7
+Arrived for landing : Plane #8
+Runway: Plane #8 LANDING Duration: 1
+
+Time: 15
+Arrived for take off: 
+Arrived for landing : 
+Runway: Plane #8 LANDING Duration: 2
+
+Time: 16
+Arrived for take off: Plane #9
+Arrived for landing : Plane #10
+Runway: Plane #8 LANDING Duration: 3
+
+Time: 17
+Arrived for take off: 
+Arrived for landing : Plane #11
+Runway: Plane #8 LANDING Duration: 4
+
+Time: 18
+Arrived for take off: 
+Arrived for landing : 
+Runway: Plane #8 LANDING Duration: 5 (FINISHED)
+
+Time: 19
+Arrived for take off: 
+Arrived for landing : 
+Runway: Plane #10 LANDING Duration: 1
+
+Time: 20
+Arrived for take off: 
+Arrived for landing : 
+Runway: Plane #10 LANDING Duration: 2
+
+Time: 21
+Arrived for take off: Plane #12
+Arrived for landing : 
+Runway: Plane #10 LANDING Duration: 3
+
+Time: 22
+Arrived for take off: 
+Arrived for landing : 
+Runway: Plane #10 LANDING Duration: 4
+
+Time: 23
+Arrived for take off: 
+Arrived for landing : 
+Runway: Plane #10 LANDING Duration: 5 (FINISHED)
+
+Time: 24
+Arrived for take off: Plane #13
+Arrived for landing : Plane #14
+Plane #11 has [CRASHED]. ArrivalTime: 17
+Runway: Plane #14 LANDING Duration: 1
+
+Time: 25
+Arrived for take off: 
+Arrived for landing : 
+Runway: Plane #14 LANDING Duration: 2
+
+Time: 26
+Arrived for take off: 
+Arrived for landing : 
+Runway: Plane #14 LANDING Duration: 3
+
+Time: 27
+Arrived for take off: 
+Arrived for landing : 
+Runway: Plane #14 LANDING Duration: 4
+
+Time: 28
+Arrived for take off: 
+Arrived for landing : 
+Runway: Plane #14 LANDING Duration: 5 (FINISHED)
+
+Time: 29
+Arrived for take off: 
+Arrived for landing : 
+Runway: Plane #6 TAKEING_OFF Duration: 1
+
+Plane Crashes:
+Plane #11 crashed 22 minutes in.
+Plane #5 crashed 10 minutes in.
+Plane #4 crashed 8 minutes in.
+Plane #3 crashed 7 minutes in.
+
+# of planes that crashed : 4
+# of planes that came to the runway for take off : 1
+# of planes that came to the runway for landing  : 5
+The average time a plane spent on the take off queue is : 14.5
+The average time a plane spent on the landing queue is  : 1.4
