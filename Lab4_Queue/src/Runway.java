@@ -16,8 +16,6 @@ public class Runway {
      */
     private final int takeoffTime;
     private final int landingTime;
-    private final int averageTakeoffArrival;
-    private final int averageLandingArrival;
     private final int maximumLandingTime;
     private final BooleanSource takeoffProbability;
     private final BooleanSource landingProbability;
@@ -43,8 +41,6 @@ public class Runway {
     public Runway(int takeoffTime, int landingTime, int averageTakeoffArrival, int averageLandingArrival, int maximumLandingTime) {
         this.takeoffTime = takeoffTime;
         this.landingTime = landingTime;
-        this.averageTakeoffArrival = averageTakeoffArrival;
-        this.averageLandingArrival = averageLandingArrival;
         this.maximumLandingTime = maximumLandingTime;
         this.takeoffProbability = new BooleanSource(1d / averageTakeoffArrival);
         this.landingProbability = new BooleanSource(1d / averageLandingArrival);
@@ -90,7 +86,69 @@ public class Runway {
      *        used to date the planes arrival to the runway.
      */
     public void process(int currentTime) {
-
+        if(runway == null) {
+            /**
+             * Try to add a plane from the landing queue first. If the plane
+             * has been in the air too long then mark it as crashed and find
+             * the next plane in the landing queue. This continues until
+             * there are no more planes in the landing queue or if an
+             * acceptable plane was chosen to land.
+             */
+            while(landing.peek() != null && runway == null) {
+                runway = landing.poll();
+                if(currentTime - runway.getArrivalTime() > maximumLandingTime) {
+                    totalCrashed++;
+                    crashes.push(runway);
+                    System.out.println(runway + " has [CRASHED]." + " ArrivalTime: " + runway.getArrivalTime());
+                    runway = null;
+                } else {
+                    averageLanding.addNumber(currentTime - runway.getArrivalTime());
+                }
+            }
+            /**
+             * If there wasn't a plane that needed to land, check the
+             * takeoff queue for planes needing to take off.
+             */
+            if(runway == null && takeoff.peek() != null) {
+                runway = takeoff.poll();
+                averageTakeoff.addNumber(currentTime - runway.getArrivalTime());
+            }
+            /**
+             * Finally, display the status of the runway.
+             */
+            if(runway == null) {
+                System.out.println("Runway: Empty");
+            } else {
+                System.out.println("Runway: " + runway + " " + runway.getOperation() + " Duration: " + runway.getActiveTime());
+            }
+        } else {
+            runway.incrementActivetime();
+            System.out.print("Runway: " + runway + " " + runway.getOperation() + " Duration: " + runway.getActiveTime());
+            switch(runway.getOperation()) {
+            case LANDING:
+                if(runway.getActiveTime() >= landingTime) {
+                    System.out.println(" (FINISHED)");
+                    totalLanded++;
+                    runway = null;
+                } else {
+                    System.out.println();
+                }
+                break;
+            case TAKEING_OFF:
+                if(runway.getActiveTime() >= takeoffTime) {
+                    System.out.println(" (FINISHED)");
+                    totalTakeoff++;
+                    runway = null;
+                } else {
+                    System.out.println();
+                }
+                break;
+            default:
+                System.out.println("Error with " + runway + ". Removing plane from runway.");
+                runway = null;
+                break;
+            }
+        }
     }
 
     /**
