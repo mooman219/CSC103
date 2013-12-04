@@ -32,13 +32,13 @@
  * @see IntArrayBag
  * @see IntLinkedBag
  ******************************************************************************/
-public class IntTreeBag implements Cloneable
+public class TreeBag<T extends Comparable<T>> implements Cloneable
 {
     // Invariant of the IntTreeBag class:
     //   1. The elements in the bag are stored in a binary search tree.
     //   2. The instance variable root is a reference to the root of the
     //      binary search tree (or null for an empty tree).
-    private BTNode<Integer> root;   
+    private BTNode<T> root;   
 
 
     /**
@@ -49,15 +49,21 @@ public class IntTreeBag implements Cloneable
      *   A new copy of the element has been added to this bag.
      * @exception OutOfMemoryError
      *   Indicates insufficient memory a new BTNode<Integer>.
+     * @exception IllegalArgumentException
+     *   Indicates the given element was null or an employee with the
+     *   same information already existed.
      **/
     //*********************************************************************
-    public void add(int element)
+    public void add(T element)
     {
-        BTNode<Integer> node = new BTNode<Integer>(element, null, null);
+        if(element == null) {
+            throw new IllegalArgumentException("add(): Null element");
+        }
+        BTNode<T> node = new BTNode<T>(element, null, null);
         if(root == null) {
             root = node;
         } else {
-            BTNode<Integer> cursor = root;
+            BTNode<T> cursor = root;
             while(cursor != null) {
                 if(cursor.getData().compareTo(element) > 0) {
                     if(cursor.getLeft() == null) {
@@ -74,7 +80,7 @@ public class IntTreeBag implements Cloneable
                         cursor = cursor.getRight();
                     }
                 } else {
-                    System.out.println("Duplicate Element");
+                    throw new IllegalArgumentException("add(): Duplicate Element: " + element);
                 }
             }
         }
@@ -92,19 +98,19 @@ public class IntTreeBag implements Cloneable
      *   Otherwise the bag remains unchanged and the method returns false. 
      **/
     //*********************************************************************
-    public boolean remove(int target)
+    public boolean remove(T target)
     {
-        if(root != null) {
+        if(root != null && target != null) {
             boolean fromRight = false;
-            BTNode<Integer> precursor = null;
-            BTNode<Integer> cursor = root;
+            BTNode<T> precursor = null;
+            BTNode<T> cursor = root;
             while(cursor != null) {
-                // This means the target is to the left of the current node.
+                // This means the target is to the left of the cursor.
                 if(cursor.getData().compareTo(target) > 0) {
                     precursor = cursor;
                     cursor = cursor.getLeft();
                     fromRight = false;
-                // This means the target is to the left of the current node.
+                // This means the target is to the right of the cursor.
                 } else if(cursor.getData().compareTo(target) < 0) {
                     precursor = cursor;
                     cursor = cursor.getRight();
@@ -133,8 +139,8 @@ public class IntTreeBag implements Cloneable
                         }
                     /*
                      * Now we know that there is a precursor and our cursor
-                     * 
                      * isn't a leaf.
+                     * 
                      * For the last two conditional statements, we're
                      * looking for the best leaf to replace the data in the
                      * cursor.
@@ -157,8 +163,49 @@ public class IntTreeBag implements Cloneable
         }
         return false;
     }
+    
+    /**
+     * Gets the target element.
+     * @param <CODE>target</CODE>
+     *   the element to find in the bag.
+     * <dt><b>Precondition:</b><dd>
+     *   If <CODE>target</CODE> was not found in the bag, then this returns
+     *   null. This also returns null if the root is null.
+     *  @return
+     *     the target element.
+     **/
+    //*********************************************************************
+    public T get(T target)
+    {
+        if(root != null && target != null) {
+            BTNode<T> cursor = root;
+            while(cursor != null) {
+                if(cursor.getData().compareTo(target) > 0) {
+                    cursor = cursor.getLeft();
+                } else if(cursor.getData().compareTo(target) < 0) {
+                    cursor = cursor.getRight();
+                } else {
+                    return cursor.getData();
+                }
+            }
+        }
+        return null;
+    }
+    //*********************************************************************
 
-    //*********************************************************************    
+    /**
+     * Displays the elements in this bag.
+     * @param - none
+     **/ 
+    //*********************************************************************                          
+    public void display( )
+    {
+        if(root != null) {
+            root.inorderPrint();
+        }
+    }
+    //*********************************************************************
+    
     /**
      * Determine the number of elements in this bag.
      * @param - none
