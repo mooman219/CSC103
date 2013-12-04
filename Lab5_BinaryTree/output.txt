@@ -1,0 +1,67 @@
+-----------------------------------
+Read from employee list
+Reading from 'employees.txt'...
+(Id: 1144 Name: Donald Williams Salary: 4114.26)
+(Id: 1892 Name: Bruce Gold Salary: 719.32)
+(Id: 2843 Name: Mark Wilson Salary: 7217.23)
+(Id: 3165 Name: Mary Smith Salary: 918.26)
+(Id: 3924 Name: Simon Becker Salary: 485.85)
+(Id: 4892 Name: Dana Albright Salary: 31462.56)
+(Id: 6023 Name: John Edgar Salary: 9.65)
+(Id: 6274 Name: John Johnson Salary: 315.56)
+(Id: 8337 Name: Debra Douglas Salary: 127.26)
+(Id: 8529 Name: Ellen Fairchild Salary: 86.77)
+(Id: 9523 Name: John Carlson Salary: 1496.24)
+-----------------------------------
+Add an employee
+Adding employee '5290 George Truman 16110.68'...
+(Id: 1144 Name: Donald Williams Salary: 4114.26)
+(Id: 1892 Name: Bruce Gold Salary: 719.32)
+(Id: 2843 Name: Mark Wilson Salary: 7217.23)
+(Id: 3165 Name: Mary Smith Salary: 918.26)
+(Id: 3924 Name: Simon Becker Salary: 485.85)
+(Id: 4892 Name: Dana Albright Salary: 31462.56)
+(Id: 5290 Name: George Truman Salary: 16110.68)
+(Id: 6023 Name: John Edgar Salary: 9.65)
+(Id: 6274 Name: John Johnson Salary: 315.56)
+(Id: 8337 Name: Debra Douglas Salary: 127.26)
+(Id: 8529 Name: Ellen Fairchild Salary: 86.77)
+(Id: 9523 Name: John Carlson Salary: 1496.24)
+-----------------------------------
+Remove an employee
+Removing employee '4892'...
+(Id: 1144 Name: Donald Williams Salary: 4114.26)
+(Id: 1892 Name: Bruce Gold Salary: 719.32)
+(Id: 2843 Name: Mark Wilson Salary: 7217.23)
+(Id: 3165 Name: Mary Smith Salary: 918.26)
+(Id: 3924 Name: Simon Becker Salary: 485.85)
+(Id: 5290 Name: George Truman Salary: 16110.68)
+(Id: 6023 Name: John Edgar Salary: 9.65)
+(Id: 6274 Name: John Johnson Salary: 315.56)
+(Id: 8337 Name: Debra Douglas Salary: 127.26)
+(Id: 8529 Name: Ellen Fairchild Salary: 86.77)
+(Id: 9523 Name: John Carlson Salary: 1496.24)
+-----------------------------------
+Get an employee
+Getting employee '3924'...
+(Id: 3924 Name: Simon Becker Salary: 485.85)
+-----------------------------------
+Modify an employee
+Setting employee '3924' salary to '20000'...
+(Id: 3924 Name: Simon Becker Salary: 20000.0)
+-----------------------------------
+Display the employees
+(Id: 1144 Name: Donald Williams Salary: 4114.26)
+(Id: 1892 Name: Bruce Gold Salary: 719.32)
+(Id: 2843 Name: Mark Wilson Salary: 7217.23)
+(Id: 3165 Name: Mary Smith Salary: 918.26)
+(Id: 3924 Name: Simon Becker Salary: 20000.0)
+(Id: 5290 Name: George Truman Salary: 16110.68)
+(Id: 6023 Name: John Edgar Salary: 9.65)
+(Id: 6274 Name: John Johnson Salary: 315.56)
+(Id: 8337 Name: Debra Douglas Salary: 127.26)
+(Id: 8529 Name: Ellen Fairchild Salary: 86.77)
+(Id: 9523 Name: John Carlson Salary: 1496.24)
+-----------------------------------
+Writing the employees
+-----------------------------------
