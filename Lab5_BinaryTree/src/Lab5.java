@@ -3,28 +3,25 @@ public class Lab5 {
         Company company = new Company();
         System.out.println("-----------------------------------");
         System.out.println("Read from employee list");
-        company.parseFile("employees.txt");
-        company.displayEmployees();
+        company.menu("1 - employees.txt");
         System.out.println("-----------------------------------");
         System.out.println("Add an employee");
-        company.addEmployee("5290 George Truman 16110.68");
-        company.displayEmployees();
+        company.menu("2 - 5290 George Truman 16110.68");
         System.out.println("-----------------------------------");
         System.out.println("Remove an employee");
-        company.removeEmployee("4892");
-        company.displayEmployees();
+        company.menu("3 - 4892");
         System.out.println("-----------------------------------");
         System.out.println("Get an employee");
-        System.out.println(company.getEmployee("3924").toString());
+        company.menu("4 - 3924");
         System.out.println("-----------------------------------");
         System.out.println("Modify an employee");
-        System.out.println(company.updateSalary("3924 20000").toString());
+        company.menu("5 - 3924 20000");
         System.out.println("-----------------------------------");
         System.out.println("Display the employees");
-        company.displayEmployees();
+        company.menu("6");
         System.out.println("-----------------------------------");
         System.out.println("Writing the employees");
-        company.writeFile("new_employees.txt");
+        company.menu("7 - new_employees.txt");
         System.out.println("-----------------------------------");
     }
 }

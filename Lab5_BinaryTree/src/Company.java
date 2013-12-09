@@ -13,6 +13,41 @@ public class Company {
     public Company() {}
 
     /**
+     * The menu takes an input line and produces a result.
+     * 
+     * @param line Line to read from.
+     */
+    public void menu(String line) {
+        int option = InputHelper.parseInteger(line);
+        switch(option) {
+        case 1:
+            read(line.substring(4));
+            displayEmployees();
+            break;
+        case 2:
+            addEmployee(line.substring(4));
+            break;
+        case 3:
+            removeEmployee(line.substring(4));
+            break;
+        case 4:
+            System.out.println(getEmployee(line.substring(4)));
+            break;
+        case 5:
+            System.out.println(updateSalary(line.substring(4)));
+            break;
+        case 6:
+            displayEmployees();
+            break;
+        case 7:
+            Company.write(this, line.substring(4));
+            break;
+        default:
+            break;
+        }
+    }
+
+    /**
      * This will read from the given file and take all valid employees from the
      * file and set them as the company's employees.
      * 
@@ -21,34 +56,10 @@ public class Company {
      * @postcondition The company object will have only the employees read from
      *                the file.
      */
-    public void parseFile(String fileName) {
+    public void read(String fileName) {
         System.out.println("Reading from '" + fileName + "'...");
-        employees = new TreeBag<>();
         for(String line : InputHelper.readFile(fileName)) {
-            employees.add(parseEmployee(line));
-        }
-    }
-    
-    /**
-     * Writes the current list of employees to the given file.
-     * @param fileName The file name to write to.
-     */
-    public void writeFile(String fileName) {
-        File file = new File(fileName);
-        if(!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch(IOException e) {
-                e.printStackTrace();
-            }
-        }
-        try(PrintStream fileStream = new PrintStream(file);) {
-            PrintStream out = System.out;
-            System.setOut(fileStream);
-            displayEmployees();
-            System.setOut(out);
-        } catch(FileNotFoundException e) {
-            e.printStackTrace();
+            addEmployee(line);
         }
     }
 
@@ -141,5 +152,29 @@ public class Company {
         }
         return null;
 
+    }
+
+    /**
+     * Writes the current list of employees to the given file.
+     * 
+     * @param fileName The file name to write to.
+     */
+    public static void write(Company company, String fileName) {
+        File file = new File(fileName);
+        if(!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch(IOException e) {
+                e.printStackTrace();
+            }
+        }
+        try(PrintStream fileStream = new PrintStream(file);) {
+            PrintStream out = System.out;
+            System.setOut(fileStream);
+            company.displayEmployees();
+            System.setOut(out);
+        } catch(FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

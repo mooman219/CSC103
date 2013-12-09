@@ -177,19 +177,28 @@ public class TreeBag<T extends Comparable<T>> implements Cloneable
     //*********************************************************************
     public T get(T target)
     {
-        if(root != null && target != null) {
-            BTNode<T> cursor = root;
-            while(cursor != null) {
-                if(cursor.getData().compareTo(target) > 0) {
-                    cursor = cursor.getLeft();
-                } else if(cursor.getData().compareTo(target) < 0) {
-                    cursor = cursor.getRight();
-                } else {
-                    return cursor.getData();
-                }
-            }
+        BTNode<T> result = get(target, root);
+        return result == null ? null : result.getData();
+    }
+    
+    /**
+     * Traverses the tree in a recursive manor.
+     * 
+     * @param target Target element to compare against.
+     * @param node The node to traverse from.
+     * @return The node containing the target element. If no node was found,
+     *         this returns null.
+     */
+    private BTNode<T> get(T target, BTNode<T> node) {
+        if(node == null || target == null) {
+            return null;
+        } else if(node.getData().compareTo(target) > 0) {
+            return get(target, node.getLeft());
+        } else if(node.getData().compareTo(target) < 0) {
+            return get(target, node.getRight());
+        } else {
+            return node;
         }
-        return null;
     }
     //*********************************************************************
 
