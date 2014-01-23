@@ -9,6 +9,7 @@
 */nbdist/
 manifest.mf
 build.xml
+nbbuild.xml
 nbactions.xml
 nb-configuration.xml
 
